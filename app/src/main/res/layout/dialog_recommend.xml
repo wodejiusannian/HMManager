@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_recommend"
+        android:text="颜色分类" />
+
+    <manager.love.i.hmmanager.common.widgets.recycle.ThreeRecycleColorView
+        android:id="@+id/three_recycle_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_reset_sure"
+        android:layout_below="@+id/shop_tv_style"
+        android:layout_margin="10dp">
+
+    </manager.love.i.hmmanager.common.widgets.recycle.ThreeRecycleColorView>
+
+    <TextView
+        style="@style/text_recommend"
+        android:text="尺码" />
+
+    <manager.love.i.hmmanager.common.widgets.recycle.ThreeRecycleView
+        android:id="@+id/three_recycle_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_reset_sure"
+        android:layout_below="@+id/shop_tv_style"
+        android:layout_margin="10dp">
+
+    </manager.love.i.hmmanager.common.widgets.recycle.ThreeRecycleView>
+
+    <EditText
+        android:id="@+id/et_recommend_reason"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_radios_gary_4dp"
+        android:gravity="start"
+        android:hint="请输入推荐理由,限制200字以内"
+        android:maxLength="201"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/dialog_recommend_sure"
+        style="@style/button_sure_time"
+        android:layout_margin="10dp"
+        android:enabled="false"
+        android:text="确定" />
+
+</LinearLayout>

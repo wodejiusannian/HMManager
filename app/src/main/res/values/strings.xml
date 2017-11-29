@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">慧美管理师</string>
+    <string name="company_introduce" formatted="false">\t\t\t北京慧美科技发展有限公司是一家基于移动数据应用，
+        为众多普通人传播生活美学智慧的新兴企业。\n\n \t\t\t2015年初，慧美衣橱管理专业机构发起人于玢老师，
+        率先提出了衣橱管理的理念。发起并成立了“慧美衣橱管理专业机”，
+        希望通过我们的努力，让形象设计专业真正服务于普通人的生活，
+        让每一个人都能成为自己的形象设计师。我们秉承衣橱管理的理念，
+        整合您的自有衣橱资源，结合您的个性特色和需求，帮助您实现从衣橱管理，
+        到衣橱升级，到智慧衣橱的打造，满足您所希望的365天的精彩，为迈向事业顶峰的您提供具有时代感的应用工具。\n\n
+        \t\t\t衣橱管理的内容：分类管理、场合管理、空间管理、数据管理、配比管理、风格管理、旧衣管理。</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

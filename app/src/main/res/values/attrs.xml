@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CenterTipView">
+        <attr name="seekbarbgColor" format="color|reference" />
+        <attr name="seekbartextColor" format="color|reference" />
+        <attr name="seekbartextSize" format="dimension|reference" />
+        <attr name="seekbartext" format="string" />
+        <attr name="seekbartype">
+            <enum name="round" value="0" />
+            <enum name="circle" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RightIndexView">
+        <attr name="seekbarrootBgColor" format="color|reference" />
+        <attr name="seekbarrootTouchBgColor" format="color|reference" />
+        <attr name="seekbaritemBgColor" format="color|reference" />
+        <attr name="seekbaritemTouchBgColor" format="color|reference" />
+        <attr name="seekbaritemTextColor" format="color|reference" />
+        <attr name="seekbaritemTextTouchBgColor" format="color|reference" />
+        <attr name="seekbaritemTextSize" format="dimension|reference" />
+    </declare-styleable>
+</resources>

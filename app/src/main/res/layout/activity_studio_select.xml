@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dk="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ac0000">
+
+        <!--<include layout="@layout/btn_back"></include>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="城市选择"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- 列表，占满屏幕 -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+        <!-- 固定头item，浮在recyclerview上层的顶部 -->
+        <include layout="@layout/seekbar_header" />
+
+
+        <!-- 中间字母提示控件，浮在recyclerview上层的右侧 -->
+        <manager.love.i.hmmanager.utils.seekbar.CenterTipView
+            android:id="@+id/tv_center_tip"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:visibility="gone"
+            dk:seekbarbgColor="#90808080"
+            dk:seekbartextColor="#FF0000"
+            dk:seekbartextSize="60sp"
+            dk:seekbartype="round" />
+
+        <!-- 右侧索引控件，浮在recyclerview上层的中心 -->
+        <manager.love.i.hmmanager.utils.seekbar.RightIndexView
+            android:id="@+id/vg_right_container"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="40dp"
+            dk:seekbaritemTextColor="#fff"
+            dk:seekbaritemTextSize="8sp"
+            dk:seekbaritemTextTouchBgColor="#88999999"
+            dk:seekbaritemTouchBgColor="#fff"
+            dk:seekbarrootBgColor="#88999999"
+            dk:seekbarrootTouchBgColor="#88999999" />
+    </RelativeLayout>
+
+</LinearLayout>

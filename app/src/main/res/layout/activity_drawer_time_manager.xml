@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBg"
+    android:orientation="vertical"
+    tools:context="manager.love.i.hmmanager.ui.activity.DrawerTimeManagerActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            style="@style/big_size_top_title"
+            android:layout_centerInParent="true"
+            android:text="时间管理" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/include_line"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_radios_stoken_red_4dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_radios_stoken_red_top_4dp"
+                    android:gravity="center_horizontal"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_time_manager_y_m"
+                        style="@style/text_big_write"
+                        android:paddingTop="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="日" />
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="一" />
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="二" />
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="三" />
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="四" />
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="五" />
+
+                        <TextView
+                            style="@style/text_big_write_weight"
+                            android:text="六" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_drawer_time_manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_drawer_time_manager_morning"
+                    android:layout_width="130dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/shape_radios_gary_4dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="上午\n9:00-12:00"
+                    android:textColor="#ac0000" />
+
+                <Button
+                    android:id="@+id/btn_drawer_time_manager_afternoon"
+                    android:layout_width="130dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/shape_radios_gary_4dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="下午\n12:00-18:00"
+                    android:textColor="#ac0000" />
+            </RelativeLayout>
+
+
+            <TextView
+                style="@style/text_big_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"
+                android:text="☆点击设置不可预约"
+                android:textColor="#ac0000"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_drawer_time_manager_sure"
+                style="@style/button_sure_time"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
+                android:enabled="false"
+                android:text="确认" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

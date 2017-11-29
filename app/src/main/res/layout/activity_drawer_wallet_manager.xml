@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBg"
+    android:orientation="vertical"
+    tools:context="manager.love.i.hmmanager.ui.activity.DrawerWalletManagerActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_wallet_manager_top"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/colorWallet"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_back_grag"></include>
+
+        <TextView
+            style="@style/big_size_text_tip"
+            android:layout_centerInParent="true"
+            android:text="钱包" />
+
+        <TextView
+            android:id="@+id/tv_wallet_detailed"
+            style="@style/big_size_text_tip"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="11dp"
+            android:text="历史收入" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_wallet_manager_top">
+
+        <RelativeLayout
+            android:id="@+id/rl_wallet_manager_money"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/colorWallet">
+
+            <TextView
+                android:id="@+id/tv_wallet_tip"
+                style="@style/big_size_text_tip"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="14dp"
+                android:text="账户余额(元)" />
+
+            <!-- <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginBottom="32dp"
+                 android:layout_marginLeft="15dp"
+                 android:text="8868"
+                 android:textColor="#333333"
+                 android:textSize="29sp" />-->
+
+            <ImageView
+                android:id="@+id/iv_drawer_wallet_what"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="14dp"
+                android:src="@mipmap/hm_drawer_wallet_what" />
+
+            <TextView
+                android:id="@+id/tv_waller_manager_all_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="0.00"
+                android:textColor="#ac0000"
+                android:textSize="29sp" />
+        </RelativeLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_wallet_manager_money"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical">-->
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_wallet_manager_money"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="14dp"
+            card_view:cardElevation="8dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/big_size_text_tip"
+                        android:text="提现详情" />
+
+                    <TextView
+                        android:id="@+id/tv_introduce"
+                        style="@style/big_size_text_999999"
+                        android:layout_alignParentEnd="true"
+                        android:text="结算说明>" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line"></include>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/big_size_text_tip"
+                        android:text="提现中" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/big_size_top_title"
+                            android:text="¥" />
+
+                        <TextView
+                            android:id="@+id/tv_wallet_pending_settlement"
+                            style="@style/big_size_top_title"
+                            android:text="0" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line"></include>
+
+                <RelativeLayout
+                    android:id="@+id/tv_wallet_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/big_size_text_tip"
+                        android:text="提现记录" />
+
+                    <!--<LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/big_size_text_999999"
+                            android:text="¥" />
+                        <TextView
+                            android:id="@+id/tv_wallet_manager_settled"
+                            style="@style/big_size_text_999999"
+                            android:text="0" />
+                    </LinearLayout>-->
+
+                </RelativeLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- <android.support.v7.widget.CardView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="14dp"
+             card_view:cardElevation="3dp">
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical">
+
+                 <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="51dp"
+                     android:gravity="center_vertical"
+                     android:padding="10dp">
+
+                     <TextView
+                         style="@style/big_size_text_tip"
+                         android:text="提现详情" />
+
+                     <TextView
+                         style="@style/big_size_text_999999"
+                         android:layout_alignParentEnd="true"
+                         android:text="提现说明>" />
+
+                 </RelativeLayout>
+
+                 <include layout="@layout/include_line"></include>
+
+                 <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="51dp"
+                     android:gravity="center_vertical"
+                     android:padding="10dp">
+
+                     <TextView
+                         style="@style/big_size_text_tip"
+                         android:text="提现中" />
+
+                     <TextView
+                         style="@style/big_size_top_title"
+                         android:layout_alignParentEnd="true"
+                         android:text="¥888" />
+
+                 </RelativeLayout>
+
+                 <include layout="@layout/include_line"></include>
+
+                 <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="51dp"
+                     android:gravity="center_vertical"
+                     android:padding="10dp">
+
+                     <TextView
+                         style="@style/big_size_text_tip"
+                         android:text="提现中" />
+
+                     <TextView
+                         style="@style/big_size_text_999999"
+                         android:layout_alignParentEnd="true"
+                         android:text="¥668" />
+
+                 </RelativeLayout>
+             </LinearLayout>
+         </android.support.v7.widget.CardView>-->
+
+
+        <Button
+            android:id="@+id/button_sure_wallet"
+            style="@style/button_sure_wallet"
+            android:layout_above="@+id/tv_wallet_manager_phone"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="90dp"
+            android:enabled="false"
+            android:text="提现" />
+
+        <!--<TextView
+            android:id="@+id/tv_wallet_history"
+            style="@style/small_size_text_red_tip"
+            android:layout_above="@+id/tv_wallet_manager_phone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="☆提现记录" />-->
+
+        <TextView
+            android:id="@+id/tv_wallet_manager_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="27dp"
+            android:autoLink="phone"
+            android:text="如遇问题，请咨询   01087227397" />
+
+        <!--</LinearLayout>
+-->
+
+    </RelativeLayout>
+</RelativeLayout>

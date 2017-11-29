@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBg"
+    android:orientation="vertical"
+    tools:context="manager.love.i.hmmanager.ui.activity.DrawerSettingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            style="@style/big_size_top_title"
+            android:layout_centerInParent="true"
+            android:text="设置" />
+    </RelativeLayout>
+
+    <include layout="@layout/include_line"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+
+        <RelativeLayout style="@style/ll_normal">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:layout_gravity="center_vertical"
+                android:text="消息推送" />
+
+            <ToggleButton
+                android:id="@+id/tb_setting_jpush"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:layout_marginRight="-10dp"
+                android:background="@android:color/transparent"
+                android:button="@drawable/toggle_btn"
+                android:checked="true"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_setting_feed_back"
+            style="@style/ll_normal"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:layout_gravity="center_vertical"
+                android:text="反馈建议" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_setting_feed_connect"
+            style="@style/ll_normal"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:layout_gravity="center_vertical"
+                android:text="联系客服" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_setting_feed_for_us"
+            style="@style/ll_normal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:layout_gravity="center_vertical"
+                android:text="关于我们" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_setting_feed_exit"
+            style="@style/ll_normal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:layout_gravity="center_vertical"
+                android:text="退出登录" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_details_include"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="223dp"
+    android:background="#00ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="11dp"
+    android:paddingRight="10dp">
+
+
+    <LinearLayout
+        android:id="@+id/ll_details_include"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/hm_main_item_bg"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:text="姓名:" />
+
+            <TextView
+                android:id="@+id/tv_details_name"
+                style="@style/big_size_text"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:layout_marginLeft="44dp"
+                android:text="服饰量:" />
+
+            <TextView
+                android:id="@+id/tv_details_number"
+                style="@style/big_size_text"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:text="联系方式:" />
+
+            <TextView
+                android:id="@+id/tv_details_phone"
+                style="@style/big_size_text"
+                android:layout_marginLeft="5dp"/>
+
+            <ImageView
+                android:id="@+id/iv_details_small_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/hm_details_phone_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:text="预约时间:" />
+
+            <TextView
+                android:id="@+id/tv_details_go_time"
+                style="@style/big_size_text_normal"
+                android:layout_marginLeft="5dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/big_size_text_tip"
+                android:text="预约地址:" />
+
+            <TextView
+                android:id="@+id/tv_details_address"
+                style="@style/big_size_text_normal"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_details_place_time"
+            style="@style/small_size_text"
+            android:layout_below="@+id/ll_details_include"
+            android:layout_gravity="end"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/tv_details_photo"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/hm_main_drawer_photo_default" />
+</RelativeLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBg"
+    android:orientation="vertical"
+    tools:context="manager.love.i.hmmanager.ui.activity.DrawerWalletManagerActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_wallet_manager_top"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/colorWallet"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_back_grag"></include>
+
+        <TextView
+            style="@style/big_size_text_tip"
+            android:layout_centerInParent="true"
+            android:text="钱包" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_wallet_manager_top">
+
+        <RelativeLayout
+            android:id="@+id/rl_wallet_manager_money"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/colorWallet">
+
+            <TextView
+                android:id="@+id/tv_wallet_tip"
+                style="@style/big_size_text_tip"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="14dp"
+                android:text="账户余额(元)" />
+
+
+            <TextView
+                android:id="@+id/tv_waller_manager_all_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="0.00"
+                android:textColor="#ac0000"
+                android:textSize="29sp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_wallet_manager_money"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="14dp"
+            card_view:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/big_size_text_bold"
+                    android:text="提现金额" />
+
+                <EditText
+                    android:id="@+id/et_wallet_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#fff"
+                    android:digits="0123456789."
+                    android:hint="¥"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
+                    android:textColor="#ac0000"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <include layout="@layout/include_line"></include>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_wallet_manager_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="超过金额将默认提现全部余额"
+                        android:textColor="#ac0000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_wallet_manager_all"
+                        style="@style/small_size_text_yellow"
+                        android:layout_alignParentEnd="true"
+                        android:text="全部提现" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/button_sure_wallet"
+            style="@style/button_sure_wallet"
+            android:layout_below="@+id/cardView"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="30dp"
+            android:enabled="false"
+            android:text="提现" />
+    </RelativeLayout>
+</RelativeLayout>

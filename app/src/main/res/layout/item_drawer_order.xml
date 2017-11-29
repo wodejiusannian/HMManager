@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radios_write_4dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_order_customer_photo"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@mipmap/hm_main_person_center" />
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/iv_order_customer_photo"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/big_size_text_bold"
+            android:text="用户名：" />
+
+        <TextView
+            android:id="@+id/tv_order_customer_name"
+            style="@style/big_size_text_bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/iv_order_customer_photo"
+        android:layout_below="@+id/ll_name"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/iv_order_customer_photo"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/big_size_text"
+            android:text="联系方式：" />
+
+        <TextView
+            android:id="@+id/tv_order_customer_phone"
+            style="@style/big_size_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/iv_order_customer_photo"
+        android:layout_below="@+id/iv_order_customer_photo"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/big_size_text"
+            android:text="服务时间：" />
+
+        <TextView
+            android:id="@+id/tv_order_customer_time"
+            style="@style/big_size_text" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/small_size_text_red_tip"
+        android:layout_below="@+id/ll_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="更多详情请登录后台查看" />
+
+</RelativeLayout>

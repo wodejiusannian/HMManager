@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_item__details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.ShopItemDetailsActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_item_details_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorMainBg">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="单品详情"
+            android:textColor="@color/colorTabSelect" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/wb_item_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/shop_item_btn_recommend"
+        android:layout_below="@+id/rl_item_details_top">
+
+    </WebView>
+
+    <Button
+        android:id="@+id/shop_item_btn_recommend"
+        style="@style/button_sure"
+        android:layout_alignParentBottom="true"
+        android:text="推荐" />
+</RelativeLayout>

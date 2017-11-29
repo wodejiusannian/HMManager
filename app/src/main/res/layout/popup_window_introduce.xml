@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radios_write_4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_popup_window_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="提现说明：  钱包显示的金钱余额皆可提现。您需要提供相对应数量的发票寄到北京慧美科技总部，总部财务部门一经核实，三个工作日公司打款完成提现。（注：每个月只可以提一次，账户如有余额将继续累积，下个月可继续提现）" />
+
+</ScrollView>

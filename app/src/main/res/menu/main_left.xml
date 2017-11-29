@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/left_wallet">
+        <item
+            android:icon="@mipmap/hm_main_drawer_wallet"
+            android:title="钱包"></item>
+    </group>
+    <group>
+        <item android:title="客户管理"></item>
+    </group>
+    <group android:id="@+id/left_manager">
+
+        <item
+            android:icon="@mipmap/hm_main_drawer_order"
+            android:title="预约客户"></item>
+    </group>
+    <item
+        android:icon="@mipmap/hm_main_drawer_365"
+        android:title="365客户"></item>
+
+    <group android:id="@+id/left_time">
+        <item
+            android:icon="@mipmap/hm_main_drawer_time"
+            android:title="时间管理"></item>
+    </group>
+    <group android:id="@+id/left_setting">
+        <item
+            android:icon="@mipmap/hm_main_drawer_setting"
+            android:title="设置"></item>
+    </group>
+</menu>

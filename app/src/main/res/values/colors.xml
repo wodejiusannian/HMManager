@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTabSelect">#ac0000</color>
+    <color name="colorRed">#ac6969</color>
+    <color name="colorYellow">#dadebb</color>
+    <color name="colorTabNoSelect">#ffffff</color>
+    <color name="colorTabStroke">#000000</color>
+    <color name="colorMainBg">#eeeeee</color>
+    <color name="colorMainBgLine">#dddddd</color>
+    <color name="colorItemOrder">#ffffff</color>
+    <color name="colorWallet">#ffd703</color>
+    <color name="welcomeColorMain">#000000</color>
+    <color name="welcomeColorMainBg">#cccccc</color>
+    <color name="welcomeColorHintBg">#dddddd</color>
+    <color name="welcomeColorTipBg">#FF4081</color>
+</resources>

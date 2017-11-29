@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBg"
+    android:orientation="vertical"
+    tools:context="manager.love.i.hmmanager.ui.activity.DrawerFeedBackActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            style="@style/big_size_top_title"
+            android:layout_centerInParent="true"
+            android:text="反馈建议" />
+    </RelativeLayout>
+
+    <include layout="@layout/include_line"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_feed_back_content"
+            android:layout_width="match_parent"
+            android:layout_height="131dp"
+            android:background="@drawable/shape_radios_write_4dp"
+            android:gravity="start"
+            android:hint="您的建议，我们细心聆听！请说~"
+            android:maxLength="50"
+            android:padding="5dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_feed_back_please"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_feed_back_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:text="请留下您的联系方式"
+            android:textColor="#666666"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/et_feed_back_phone"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:layout_below="@+id/tv_feed_back_please"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_radios_write_4dp"
+            android:gravity="center_vertical"
+            android:hint="例如 18888888888"
+            android:inputType="number"
+            android:maxLength="12"
+            android:padding="5dp"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_feed_back_advice"
+            style="@style/button_sure"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:text="提交建议" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

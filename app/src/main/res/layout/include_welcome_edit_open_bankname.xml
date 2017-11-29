@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            style="@style/welcomeTextRedBg"
+            android:text="*" />
+
+        <TextView
+            style="@style/welcomeTextMain"
+            android:text="开户行" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp">
+
+            <EditText
+                android:id="@+id/et_wel_bank_name"
+                style="@style/editWelcomeStyle"
+                android:layout_toLeftOf="@+id/iv_welcome_edit_name_tip"
+                android:hint="点击选择开户行"
+                android:maxLength="18" />
+
+            <ImageView
+                android:id="@+id/iv_welcome_edit_name_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/hm_welcome_info_tip" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView style="@style/lineStyle" />
+</LinearLayout>

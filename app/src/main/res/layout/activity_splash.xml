@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="manager.love.i.hmmanager.SplashActivity">
+
+    <ImageView
+        android:id="@+id/iv_splash_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_splash_jump"
+        style="@style/text_splash_jump"
+        android:layout_alignParentEnd="true"
+        android:text="跳过（3s）" />
+
+</RelativeLayout>

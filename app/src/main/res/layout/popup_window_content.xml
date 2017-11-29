@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radios_write_4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_popup_window_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="此部分的收入构成，包括用户支付您的上门预约服务费用（及补差价），用户购买您的个人365VIP会员费，您对用户推荐服饰成单后的分成（包括小蓝盒购买）。" />
+
+</ScrollView>

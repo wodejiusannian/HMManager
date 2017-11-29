@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@color/colorMainBg"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/welcomeTextMainBold"
+        android:text="选择推荐人" />
+
+    <ToggleButton
+        android:id="@+id/mTogBtn"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:button="@drawable/toggle_btn"
+        android:checked="true"
+        android:text=""
+        android:textOff=""
+        android:textOn="" />
+</RelativeLayout>

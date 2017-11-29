@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/hm_main_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/tv_main_person"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@mipmap/hm_main_person_center"
+            android:text="个人\n中心" />
+
+        <TextView
+            android:id="@+id/tv_main_name"
+            style="@style/big_size_top_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="未登录" />
+
+        <ImageView
+            android:id="@+id/tv_main_state"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="11dp"
+            android:layout_toLeftOf="@+id/tv_main_msg"
+            android:src="@mipmap/hm_main_online" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="43dp"
+            android:background="#dddddd" />
+
+        <ImageView
+            android:id="@+id/tv_main_msg"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="11dp"
+            android:src="@mipmap/hm_main_hava_msg" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_state_online_unline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorYellow"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="点击设置在线状态"
+        android:textColor="@color/colorRed" />
+
+    <TextView
+        android:id="@+id/tv_no_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="亲，你还未登录"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="29dp"
+        android:text="预约订单"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/bga_main_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="6dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_main_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_main_no_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_main_is_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/hm_main_no_order" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
+
+

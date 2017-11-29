@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_dialog_accept_bg"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/hm_order_success" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:gravity="center"
+        android:text="如需和用户交流，请点击详情查看用户手机号"
+        android:textColor="#666666"
+        android:textSize="13sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="14dp">
+
+        <Button
+            android:id="@+id/btn_dialog_accept_cancel"
+            style="@style/button_common"
+            android:background="@drawable/shape_button_refuse"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/btn_dialog_accept_details"
+            style="@style/button_common"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/shape_button_accept"
+            android:text="查看详情" />
+    </RelativeLayout>
+</LinearLayout>

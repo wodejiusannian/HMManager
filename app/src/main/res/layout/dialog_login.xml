@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_radios_write_4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_radios_red__top_4dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="为了您更好的体验，更方便使用，请登录"
+        android:textColor="#fff" />
+
+    <EditText
+        android:id="@+id/et_login_dialog_account"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_radios_whrite_4line"
+        android:gravity="center"
+        android:hint="账号"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="11"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_login_dialog_psd"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_radios_whrite_4line"
+        android:gravity="center"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_login_dialog_login"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_radios_red_4dp"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tv_login_dialog_welcome"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_radios_red_4dp"
+            android:gravity="center"
+            android:text="注册"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

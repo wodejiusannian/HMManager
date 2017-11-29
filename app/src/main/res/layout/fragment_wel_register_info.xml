@@ -1,0 +1,76 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="manager.love.i.hmmanager.ui.fragment.welcome.WelRegisterInfoFragment">
+    <!--
+    <style name="welcomeTextMain">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">welcomeColorMain</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="welcomeTextMainBold">
+        <item name="android:textColor">welcomeColorMain</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="editWelcomeStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/welcomeColorMain</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/welcomeColorHintBg</item>
+    </style>
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@mipmap/hm_welcome_defalut_bg" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/hm_welcome_registerinfo" />
+
+        <include layout="@layout/include_welcome_main_bg_id"></include>
+
+        <include layout="@layout/include_welcome_id_content"></include>
+
+        <include layout="@layout/include_welcome_edit_name"></include>
+
+        <include layout="@layout/include_welcome_edit_id"></include>
+
+        <include layout="@layout/include_welcome_main_bg_phone"></include>
+
+        <include layout="@layout/include_welcome_edit_phone"></include>
+
+        <include layout="@layout/include_welcome_main_bg_recommend"></include>
+
+        <include layout="@layout/include_welcome_edit_recommend"></include>
+
+        <include layout="@layout/include_welcome_explain"></include>
+
+        <Button
+            android:id="@+id/btn_wel_register_info_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/select_time_enable"
+            android:enabled="false"
+            android:text="下一步" />
+    </LinearLayout>
+
+</ScrollView>

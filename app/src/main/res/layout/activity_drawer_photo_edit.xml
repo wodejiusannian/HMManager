@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainBg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="manager.love.i.hmmanager.ui.activity.DrawerPhotoEditActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            style="@style/big_size_top_title"
+            android:layout_centerInParent="true"
+            android:text="信息编辑" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/include_line"></include>
+
+    <ImageView
+        android:id="@+id/iv_edit_photo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/hm_main_drawer_photo_default" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="点击更改头像"
+        android:textSize="10sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_edit_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_photo_edit_boy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/select_drawer_photo_edit_sex_man" />
+
+        <RadioButton
+            android:id="@+id/rb_photo_edit_girl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/select_drawer_photo_edit_sex_woman" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_edit_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/shape_radios_write_4dp"
+        android:gravity="start"
+        android:hint="简介:"
+        android:padding="5dp"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/iv_drawer_photo_edit_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/hm_drawer_photo_save" />
+
+    <TextView
+        style="@style/big_size_text_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="保存" />
+</LinearLayout>

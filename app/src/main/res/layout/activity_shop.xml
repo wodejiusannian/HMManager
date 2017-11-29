@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shop_dl_right_filter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="manager.love.i.hmmanager.ui.activity.ShopActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_item_details_top"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorMainBg">
+
+            <include layout="@layout/include_back"></include>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="商城"
+                android:textColor="@color/colorTabSelect" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/rg_shop_top_select"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="3"
+                android:background="@color/colorMainBg"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/shop_rb_default_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableRight="@mipmap/hm_manager_shop_select_down"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="默认"
+                    android:textColor="@drawable/selector_textcolor" />
+
+                <RadioButton
+                    android:id="@+id/rb_main_order"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableRight="@mipmap/hm_manager_shop_select_down"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="分类"
+                    android:textColor="@drawable/selector_textcolor" />
+
+                <RadioButton
+                    android:id="@+id/rb_main_me"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableRight="@mipmap/hm_manager_shop_select_down"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="款式"
+                    android:textColor="@drawable/selector_textcolor" />
+            </RadioGroup>
+
+            <RadioButton
+                android:id="@+id/shop_rb_right_scroll_filter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMainBg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="筛选"
+                android:textColor="@drawable/selector_textcolor" />
+        </LinearLayout>
+
+
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/shop_bga_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="6dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_shop_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </android.support.v7.widget.RecyclerView>
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="#fff"
+        android:padding="10dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/ll_reset_sure"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/shop_tv_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别" />
+
+                <manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView
+                    android:id="@+id/three_recycle_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shop_tv_sex"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false">
+
+                </manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView>
+
+                <TextView
+                    android:id="@+id/shop_tv_season"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/three_recycle_sex"
+                    android:text="季节" />
+
+                <manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView
+                    android:id="@+id/three_recycle_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shop_tv_season"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false">
+
+                </manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView>
+
+                <TextView
+                    android:id="@+id/shop_tv_sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/three_recycle_reason"
+                    android:text="分类" />
+
+                <manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView
+                    android:id="@+id/three_recycle_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shop_tv_sort"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false">
+
+                </manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView>
+
+                <TextView
+                    android:id="@+id/shop_tv_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/three_recycle_sort"
+                    android:text="款式" />
+
+                <manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView
+                    android:id="@+id/three_recycle_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shop_tv_style"
+                    android:nestedScrollingEnabled="false">
+
+                </manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView>
+
+
+                <TextView
+                    android:id="@+id/shop_tv_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/three_recycle_style"
+                    android:text="颜色" />
+
+                <manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView
+                    android:id="@+id/three_recycle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false">
+
+                </manager.love.i.hmmanager.common.widgets.recycle.FourRecycleView>
+            </LinearLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:id="@+id/ll_reset_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/shop_btn_reset"
+                android:layout_width="0dp"
+                android:layout_height="41dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_radios_gary_left_4dp"
+                android:text="重置"
+                android:textColor="@color/colorTabNoSelect" />
+
+            <Button
+                android:id="@+id/shop_btn_sure"
+                android:layout_width="0dp"
+                android:layout_height="41dp"
+                android:layout_weight="2"
+                android:background="@drawable/shape_radios_red_left_4dp"
+                android:text="确认"
+                android:textColor="@color/colorTabNoSelect" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.v4.widget.DrawerLayout>

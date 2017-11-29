@@ -1,0 +1,304 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        //
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+
+    <style name="Anim_fade" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/fade</item>
+    </style>
+
+    <style name="fade" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_in</item>
+        //
+        <item name="android:activityOpenExitAnimation">@anim/activity_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_out</item>
+        //
+        <item name="android:activityCloseExitAnimation">@anim/activity_out</item>
+    </style>
+
+    <style name="MatchAuto">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="big_size_text_tip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="big_size_text_history">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
+    <style name="big_size_text_history_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
+    <style name="big_size_text_999999">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ll_normal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/shape_radios_gary_4dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="ll_normal_white">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/shape_radios_write_4dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="big_size_text_bold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="big_size_top_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ac0000</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="big_size_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#666666</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="text_big_red">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#ac0000</item>
+    </style>
+
+    <style name="text_big_write">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="text_big_write_weight">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="big_size_text_normal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#666666</item>
+    </style>
+
+    <style name="small_size_text">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#ac0000</item>
+    </style>
+
+    <style name="small_size_text_yellow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#ffd703</item>
+    </style>
+
+    <style name="small_size_text_red_tip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ac0000</item>
+    </style>
+
+    <style name="button_common">
+        <item name="android:layout_width">73dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="button_sure">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">41dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@drawable/shape_radios_red_4dp</item>
+    </style>
+
+    <style name="button_sure_time">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">41dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@drawable/select_time_enable</item>
+    </style>
+
+    <style name="button_sure_wallet">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">41dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:background">@drawable/select_wallet_enable</item>
+    </style>
+
+    <style name="button_sure_write">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">41dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ac0000</item>
+        <item name="android:background">@drawable/shape_radios_write_4dp</item>
+    </style>
+
+    <style name="AppWelcome" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/hm_splash_welcome_bg</item>
+    </style>
+
+    <style name="text_splash_jump">
+        <item name="android:background">@drawable/shape_radios_gary_4dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+
+    <style name="MyProgressTheme" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="text_recommend">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#000</item>
+    </style>
+    <!--
+    <color name="welcomeColorMain">#000000</color>
+    <color name="welcomeColorMainBg">#dddddd</color>
+    <color name="welcomeColorHintBg">#eeeeee</color>
+    <color name="welcomeColorTipBg">#FF4081</color>
+    -->
+    <style name="lineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/welcomeColorHintBg</item>
+    </style>
+
+
+    <style name="welcomeTextMain">
+        <item name="android:layout_width">95dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/welcomeColorMain</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="welcomeTextMainAdapt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/welcomeColorMain</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="welcomeTextMainBold">
+        <item name="android:textColor">@color/welcomeColorMain</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="welcomeTextRedBg">
+        <item name="android:textColor">@color/welcomeColorTipBg</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="editWelcomeStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/welcomeColorMain</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/welcomeColorHintBg</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="MySelfDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+</resources>
