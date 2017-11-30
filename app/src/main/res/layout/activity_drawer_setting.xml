@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorMainBg"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="manager.love.i.hmmanager.ui.activity.DrawerSettingActivity">
 
     <RelativeLayout

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="manager.love.i.hmmanager.ui.activity.MsgActivity">
 
     <RelativeLayout

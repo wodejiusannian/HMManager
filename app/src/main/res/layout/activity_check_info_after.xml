@@ -5,52 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-
     tools:context="manager.love.i.hmmanager.ui.activity.register.CheckInfoActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:text="审核状态" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/ic_launcher" />
+    <RelativeLayout
+        android:id="@+id/tv_welcome_hm_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="审核状态"
+            android:textColor="#ac0000" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="@mipmap/hm_register_after_examine_bg">
 
-        <TextView
-            android:id="@+id/tv_check_info_after_state"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:text="审核中"
-            android:textColor="#ac0000"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tv_go_updata_info"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tv_check_info_after_state"
-            android:gravity="center_vertical"
-            android:text="去修改>>"
-            android:textColor="@color/colorWallet"
-            android:textSize="10sp" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_after_examine_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/hm_register_examineing" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_check_info_after_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:text="审核中"
+                    android:textColor="#fff"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_go_updata_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_check_info_after_state"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text="重新提交>>"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_check_info_refuse_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
     </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

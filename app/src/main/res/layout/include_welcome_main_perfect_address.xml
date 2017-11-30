@@ -19,6 +19,7 @@
             android:id="@+id/tv_welcome_main_perfect_province"
             style="@style/welcomeTextMainAdapt"
             android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
             android:text="请选择省份" />
 
         <ImageView
@@ -48,6 +49,8 @@
                 android:id="@+id/tv_welcome_main_perfect_city"
                 style="@style/welcomeTextMainAdapt"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:gravity="start"
                 android:text="请选择城市" />
 
             <ImageView
@@ -72,6 +75,7 @@
                 android:id="@+id/tv_welcome_main_perfect_county"
                 style="@style/welcomeTextMainAdapt"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
                 android:text="请选择区县" />
 
             <ImageView

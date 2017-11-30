@@ -35,7 +35,7 @@
                 android:maxLength="18" />
 
             <ImageView
-                android:id="@+id/iv_welcome_edit_name_tip"
+                android:id="@+id/iv_welcome_edit_bank_name_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

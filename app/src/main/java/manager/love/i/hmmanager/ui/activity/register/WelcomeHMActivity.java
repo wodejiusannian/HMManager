@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
@@ -24,6 +25,7 @@ import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseActivity;
 import manager.love.i.hmmanager.bean.LyCommendPeople;
 import manager.love.i.hmmanager.ui.custom.dialog.MessageDialog;
+import manager.love.i.hmmanager.ui.custom.dialog.TipDialog;
 import manager.love.i.hmmanager.ui.fragment.welcome.WelPerfectInfoFragment;
 import manager.love.i.hmmanager.ui.fragment.welcome.WelRegisterInfoFragment;
 import manager.love.i.hmmanager.ui.fragment.welcome.WelSignAgreementFragment;
@@ -48,6 +50,7 @@ public class WelcomeHMActivity extends BaseActivity {
 
     private MessageDialog dialog;
 
+    private TipDialog tipDialog;
     private StringInter stringInter;
 
     private String update;
@@ -65,10 +68,8 @@ public class WelcomeHMActivity extends BaseActivity {
                 .subscribe(new Action1<Integer>() {
                                @Override
                                public void call(Integer userEvent) {
-                                   if (userEvent == 0) {
+                                   if (userEvent == 0 || userEvent == 9000) {
                                        WelcomeHMActivity.this.finish();
-                                   } else if (userEvent == 9000) {
-                                       finish();
                                    }
                                }
                            },
@@ -78,6 +79,7 @@ public class WelcomeHMActivity extends BaseActivity {
                                 // TODO: 处理异常
                             }
                         });
+        notifyDialog("1、慧美衣橱工作室网上申请步骤均需申请人本人亲自完成，否则，一经发现公司有权冻结申请人的账号使用权\n2、建议提前准备好一下电子版资料以保证申请流程顺畅：\n-本人二代居民身份证\n-银行账户资料\n3、审核成功后用短信方式告知【账号】和【密码】");
     }
 
     @Override
@@ -86,9 +88,16 @@ public class WelcomeHMActivity extends BaseActivity {
         showAndHide(R.id.rl_welcome_content, WelRegisterInfoFragment.class);
     }
 
+
+    public void back(View view) {
+        finish();
+    }
+
     @Override
     protected void setData() {
         update = getIntent().getStringExtra("update");
+        String studio_id = getIntent().getStringExtra("studio_id");
+        map.put("studio_id", studio_id);
     }
 
 
@@ -199,25 +208,32 @@ public class WelcomeHMActivity extends BaseActivity {
             if (data != null) {
                 loadingDialog();
                 final ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
+                Message msg = Message.obtain();
+                Bundle bundle = new Bundle();
+                bundle.putString("url", list.get(0));
+                msg.setData(bundle);
+                handler.sendMessage(msg);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String imageUrl = HttpUtils.uploadFile(new File(list.get(0)), "http://hmyc365.net/HM/bg/system/file/picture/picUpload.do");
-                        imageUrl = imageUrl.substring(2, imageUrl.length() - 2);
-                        Message msg = Message.obtain();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("url", imageUrl);
-                        msg.setData(bundle);
-                        handler.sendMessage(msg);
+                        try {
+                            String imageUrl = HttpUtils.uploadFile(new File(list.get(0)), "http://hmyc365.net/HM/bg/system/file/picture/picUpload.do");
+                            imageUrl = imageUrl.substring(2, imageUrl.length() - 2);
+                            Message msg = Message.obtain();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("url", imageUrl);
+                            msg.setData(bundle);
+                            handler.sendMessage(msg);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }).start();
             }
         } else if (requestCode == 100) {
             try {
                 LyCommendPeople.BodyBean bodyBean = (LyCommendPeople.BodyBean) data.getSerializableExtra("id");
-                stringInter.onResult(bodyBean.getName_gzs());
-                map.put("referee_id", bodyBean.getStudio_id() + "");
-                map.put("referee_name", bodyBean.getName_gzs());
+                stringInter.onResult(bodyBean.getName_gzs() + "," + bodyBean.getName_gzs());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -259,12 +275,13 @@ public class WelcomeHMActivity extends BaseActivity {
     }
 
 
-    public void registerInfo(String name, String id, String phone, String referee_name, String id_pic) {
+    public void registerInfo(String name, String id, String phone, String id_pic, String referee_name, String referee_id) {
         map.put("name", name);
         map.put("phone", phone);
         map.put("id_number", id);
         map.put("referee_name", referee_name);
         map.put("id_pic", id_pic);
+        map.put("referee_id", referee_id);
     }
 
     public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic) {
@@ -284,7 +301,6 @@ public class WelcomeHMActivity extends BaseActivity {
         }
         intent.putExtra("json", json);
         startActivity(intent);
-
     }
 
     public void jumpAddress(StringInter stringInter) {
@@ -304,4 +320,12 @@ public class WelcomeHMActivity extends BaseActivity {
         dialog.show();
     }
 
+    public void notifyPic(int dialogMessage) {
+        if (tipDialog == null) {
+            tipDialog = new TipDialog(this,dialogMessage);
+        } else {
+            tipDialog.notifyPic(dialogMessage);
+        }
+        tipDialog.show();
+    }
 }

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,7 +20,7 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@mipmap/hm_welcomce_perfectinfo" />
 
         <include layout="@layout/include_welcome_main_bg_bank"></include>
@@ -34,12 +35,16 @@
 
         <include layout="@layout/include_welcome_main_perfect_address"></include>
 
+
         <Button
             android:id="@+id/btn_wel_perfect_info_next"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
-            android:text="下一步222" />
+            android:layout_margin="20dp"
+            android:background="@drawable/shape_radios_red_4dp"
+            android:text="下一步"
+            android:textColor="#fff" />
     </LinearLayout>
 
 </ScrollView>

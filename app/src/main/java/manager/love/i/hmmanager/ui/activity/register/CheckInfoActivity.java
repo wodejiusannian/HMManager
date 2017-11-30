@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -58,6 +57,7 @@ public class CheckInfoActivity extends BaseActivity {
 
     @Override
     protected void setListener() {
+
         RxBusUtils.getDefault().toObservable(Integer.class)
                 .subscribe(new Action1<Integer>() {
                                @Override
@@ -66,12 +66,13 @@ public class CheckInfoActivity extends BaseActivity {
                                        CheckInfoActivity.this.finish();
                                    } else if (userEvent == 9000) {
                                        Intent intent = new Intent(CheckInfoActivity.this, CheckInfoAfterActivity.class);
+                                       intent.putExtra("account_state", "21");
                                        intent.putExtra("phone", phone);
                                        intent.putExtra("studio_id", studio_id);
                                        startActivity(intent);
                                        finish();
-                                   } else if (userEvent == 9001) {
-                                       startActivity(new Intent(CheckInfoActivity.this, CheckInfoAfterActivity.class));
+                                   } else if (userEvent == 9002) {
+                                       Toast.makeText(CheckInfoActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
                                    }
                                }
                            },
@@ -102,8 +103,10 @@ public class CheckInfoActivity extends BaseActivity {
             mData.add(new CheckInfo("银行卡号:", obj.getString("card_no")));
             mData.add(new CheckInfo("开户行:", obj.getString("card_bank")));
             mData.add(new CheckInfo("地址信息:", obj.getString("address")));
-        } catch (JSONException e) {
+            studio_id = obj.getString("studio_id");
+        } catch (Exception e) {
             e.printStackTrace();
+            studio_id = "";
         }
     }
 
@@ -127,7 +130,28 @@ public class CheckInfoActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_check_info_go_pay:
                 if (ActivityUtils.isEmpty(update)) {
-                    Toast.makeText(this, "修改", Toast.LENGTH_SHORT).show();
+                    new AsyncHttpUtils(new HttpCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+                            try {
+                                JSONObject obj = new JSONObject(result);
+                                String ret = obj.getString("ret");
+                                if ("0".equals(ret)) {
+                                    Intent intent = new Intent(CheckInfoActivity.this, CheckInfoAfterActivity.class);
+                                    intent.putExtra("phone", phone);
+                                    intent.putExtra("account_state", "21");
+                                    intent.putExtra("studio_id", studio_id);
+                                    startActivity(intent);
+                                    RxBusUtils.getDefault().post(0);
+                                    finish();
+                                } else {
+                                    Toast.makeText(CheckInfoActivity.this, "请重试", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, this).execute("http://hmyc365.net/HM/bg/hmgls/login/register/data/updateData.do", json);
                 } else {
                     goPay();
                 }
@@ -162,7 +186,7 @@ public class CheckInfoActivity extends BaseActivity {
                     } else {
                         Toast.makeText(CheckInfoActivity.this, "请重试", Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

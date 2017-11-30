@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -372,14 +370,6 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
                     if (refresh != null)
                         refresh.endLoadingMore();
                     break;
-                case 4:
-                    Toast.makeText(MainActivity.this, "登录--22222-成功", Toast.LENGTH_SHORT).show();
-                    Intent in = new Intent(MainActivity.this, CheckInfoAfterActivity.class);
-                 /*   in.putExtra("account_state", account_state);
-                    in.putExtra("studio_id", obj.getString("studio_id"));
-                    in.putExtra("phone", account);*/
-                    startActivity(in);
-                    break;
                 default:
                     break;
 
@@ -484,8 +474,6 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
             @Override
             public void onResponse(String result) {
                 try {
-                    Log.e(TAG, "onResponse: ---------" + result);
-
                     JSONObject obj = new JSONObject(result);
                     String ret = obj.getString("ret");
                     if ("0".equals(ret)) {
@@ -493,7 +481,7 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
                         String account_state = body.getString("account_state");
                         String studio_id = body.getString("studio_id");
                         if ("10".equals(account_state)) {
-                            SPUtils.writeUserInfo(MainActivity.this, body.getString("state"), body.getString("sex"), body.getString("name"), body.getString("pic_url"), body.getString("studio_id"));
+                            SPUtils.writeUserInfo(MainActivity.this, body.getString("studio_state"), body.getString("studio_sex"), body.getString("studio_name"), body.getString("studio_head_pic_url"), body.getString("studio_id"));
                             initUser();
                             initRongIM();
                             Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
@@ -508,7 +496,7 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
                     } else {
                         Toast.makeText(MainActivity.this, "账号或者密码错误", Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

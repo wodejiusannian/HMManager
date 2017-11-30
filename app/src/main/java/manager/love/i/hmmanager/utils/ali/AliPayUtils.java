@@ -49,10 +49,11 @@ public class AliPayUtils {
                     PayResult payResult = new PayResult((Map<String, String>) msg.obj);
                     String resultInfo = payResult.getResult();
                     String resultStatus = payResult.getResultStatus();
+                    /* 支付成功*/
                     if (TextUtils.equals(resultStatus, "9000")) {
                         RxBusUtils.getDefault().post(9000);
                     } else {
-                        RxBusUtils.getDefault().post(9001);
+                        RxBusUtils.getDefault().post(9002);
                     }
                     break;
                 }

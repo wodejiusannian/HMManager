@@ -5,21 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-
     tools:context="manager.love.i.hmmanager.ui.activity.register.CheckInfoActivity">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/tv_welcome_hm_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:text="资料审查页面" />
+        android:layout_height="40dp">
+
+        <include layout="@layout/include_back"></include>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="资料审查页面"
+            android:textColor="#ac0000" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
         android:background="#eeeeee"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"

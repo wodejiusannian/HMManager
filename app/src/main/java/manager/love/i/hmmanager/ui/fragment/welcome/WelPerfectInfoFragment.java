@@ -45,14 +45,13 @@ public class WelPerfectInfoFragment extends BaseFragment {
 
     private Map<String, List<String>> cityCountyData;
 
-    private String strProvince, strCity, strCounty;
+    private String strProvince, strCity, card_pic;
 
     @BindViews({R.id.tv_welcome_main_perfect_province, R.id.tv_welcome_main_perfect_city, R.id.tv_welcome_main_perfect_county})
     TextView[] cities;
 
     private WelcomeHMActivity activity;
 
-    private String card_pic;
 
     @BindViews({R.id.et_wel_bank_id, R.id.et_wel_bank_name, R.id.et_wel_address_details})
     EditText[] ets;
@@ -118,7 +117,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                     JSONObject objs = new JSONObject(result);
                     JSONObject body = objs.getJSONObject("body");
                     card_pic = body.getString("card_pic");
-                    Glide.with(getContext()).load(card_pic).into(iv);
+                    Glide.with(getContext()).load(card_pic).error(R.mipmap.hm_welcome_bank).into(iv);
                     ets[0].setText(body.getString("card_no"));
                     ets[1].setText(body.getString("card_bank"));
                     String[] address = body.getString("address").split(" ");
@@ -138,7 +137,8 @@ public class WelPerfectInfoFragment extends BaseFragment {
     }
 
     @OnClick({R.id.btn_wel_perfect_info_next, R.id.rl_welcome_main_perfect_province,
-            R.id.rl_welcome_main_perfect_city, R.id.rl_welcome_main_perfect_county, R.id.iv_wel_bank_pic})
+            R.id.rl_welcome_main_perfect_city, R.id.rl_welcome_main_perfect_county, R.id.iv_wel_bank_pic,
+            R.id.iv_welcome_edit_bank_id_tip, R.id.iv_welcome_edit_bank_name_tip, R.id.tv_welcome_tip_bank})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.btn_wel_perfect_info_next:
@@ -189,6 +189,16 @@ public class WelPerfectInfoFragment extends BaseFragment {
                         Glide.with(activity).load(card_pic).into(iv);
                     }
                 });
+                break;
+            case R.id.iv_welcome_edit_bank_name_tip:
+                activity.notifyDialog("请输入该银行卡号开户行，例如：招商银行亦庄支行；");
+                break;
+            case R.id.iv_welcome_edit_bank_id_tip:
+                activity.notifyDialog("1、请输入X位银行卡号；\n" +
+                        "2、此银行卡号将作为结算作用，请认真填写；");
+                break;
+            case R.id.tv_welcome_tip_bank:
+                activity.notifyPic(R.mipmap.hm_welcome_bank_tip);
                 break;
             default:
                 break;

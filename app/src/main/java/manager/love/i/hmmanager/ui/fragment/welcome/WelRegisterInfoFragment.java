@@ -54,7 +54,7 @@ public class WelRegisterInfoFragment extends BaseFragment {
     @BindView(R.id.iv_welcome_id_image)
     ImageView iv;
 
-    private String id_pic;
+    private String id_pic, recommendid;
 
     @BindView(R.id.btn_wel_register_info_next)
     Button btnNext;
@@ -75,8 +75,9 @@ public class WelRegisterInfoFragment extends BaseFragment {
                 try {
                     JSONObject objs = new JSONObject(result);
                     JSONObject body = objs.getJSONObject("body");
-                    id_pic = body.getString("card_pic");
-                    Glide.with(getContext()).load(id_pic).into(iv);
+                    id_pic = body.getString("id_pic");
+                    recommendid = body.getString("referee_id");
+                    Glide.with(getContext()).load(id_pic).error(R.mipmap.hm_welcome_id).into(iv);
                     ets[0].setText(body.getString("name"));
                     ets[1].setText(body.getString("id_number"));
                     ets[2].setText(body.getString("phone"));
@@ -113,9 +114,12 @@ public class WelRegisterInfoFragment extends BaseFragment {
     @OnClick({R.id.btn_wel_register_info_next, R.id.iv_welcome_id_image,
             R.id.tv_wel_recommend_person, R.id.iv_welcome_edit_name_tip,
             R.id.iv_welcome_edit_id_tip, R.id.iv_welcome_edit_phone_tip,
-            R.id.iv_welcome_edit_recommend_person_tip})
+            R.id.iv_welcome_edit_recommend_person_tip, R.id.tv_welcome_tip_id})
     public void onEvent(View v) {
         switch (v.getId()) {
+            case R.id.tv_welcome_tip_id:
+                activity.notifyPic(R.mipmap.hm_wlecome_id_tip);
+                break;
             case R.id.btn_wel_register_info_next:
                 String name = ets[0].getText().toString();
                 String id = ets[1].getText().toString();
@@ -138,7 +142,7 @@ public class WelRegisterInfoFragment extends BaseFragment {
                 } else {
                     String[] split = id_pic.split("/");
                     id_pic = split[split.length - 1];
-                    activity.registerInfo(name, id, phone, recommend, id_pic);
+                    activity.registerInfo(name, id, phone, id_pic, recommend, recommendid);
                     activity.flip(1);
                 }
                 break;
@@ -155,7 +159,9 @@ public class WelRegisterInfoFragment extends BaseFragment {
                 activity.jumpAddress(new StringInter() {
                     @Override
                     public void onResult(String result) {
-                        tvs[0].setText(result);
+                        String[] split = result.split(",");
+                        tvs[0].setText(split[0]);
+                        recommendid = split[1];
                     }
                 });
                 break;
@@ -165,15 +171,13 @@ public class WelRegisterInfoFragment extends BaseFragment {
                         "3.姓名中间不得加入空格");
                 break;
             case R.id.iv_welcome_edit_id_tip:
-                activity.notifyDialog("身份证号码提示：\n" +
-                        "请正确填写身份证号码，应与身份证上保持一致；");
+                activity.notifyDialog("请正确填写身份证号码，应与身份证上保持一致；");
                 break;
             case R.id.iv_welcome_edit_phone_tip:
-                activity.notifyDialog("手机号提示：\n" +
-                        "该手机号将登记为公司联系您的唯一手机号，请认真填写；");
+                activity.notifyDialog("该手机号将登记为公司联系您的唯一手机号，请认真填写；");
                 break;
             case R.id.iv_welcome_edit_recommend_person_tip:
-                activity.notifyDialog("推荐人就是推荐你加入的那个人可以点击选择，亲亲您");
+                activity.notifyDialog("推荐人只能选择现有的基地/工作室");
                 break;
             default:
                 break;
@@ -205,7 +209,7 @@ public class WelRegisterInfoFragment extends BaseFragment {
                             } else {
                                 Toast.makeText(activity, "该手机号已经注册，修改可以忽略", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

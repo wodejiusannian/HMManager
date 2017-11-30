@@ -9,12 +9,13 @@
     <ImageView
         android:id="@+id/iv_wel_bank_pic"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:src="@mipmap/hm_welcome_bank" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -23,6 +24,7 @@
             android:text="点击“" />
 
         <TextView
+            android:id="@+id/tv_welcome_tip_bank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="查看示例“"

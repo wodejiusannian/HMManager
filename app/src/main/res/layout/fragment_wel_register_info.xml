@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#fff"
     android:layout_height="match_parent"
     tools:context="manager.love.i.hmmanager.ui.fragment.welcome.WelRegisterInfoFragment">
     <!--
@@ -40,9 +41,9 @@
 
         <ImageView
             android:id="@+id/imageView2"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
             android:src="@mipmap/hm_welcome_registerinfo" />
 
         <include layout="@layout/include_welcome_main_bg_id"></include>
@@ -66,11 +67,13 @@
         <Button
             android:id="@+id/btn_wel_register_info_next"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
             android:background="@drawable/select_time_enable"
             android:enabled="false"
-            android:text="下一步" />
+            android:text="下一步"
+            android:textColor="#fff" />
     </LinearLayout>
 
 </ScrollView>

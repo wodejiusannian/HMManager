@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -111,7 +110,7 @@ public class LiJiYuYueStudioSelectCityActivity extends BaseActivity {
                         }
                     });
                     adapter.notifyDataSetChanged();
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
