@@ -148,7 +148,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                 String province = cities[0].getText().toString();
                 String city = cities[1].getText().toString();
                 String county = cities[2].getText().toString();
-                if (!MathUtils.checkBankCard(bankId)) {
+                if (ActivityUtils.isEmpty(bankId) && !MathUtils.checkBankCard(bankId)) {
                     Toast.makeText(activity, "银行卡号不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
