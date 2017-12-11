@@ -30,6 +30,7 @@ import manager.love.i.hmmanager.utils.HttpUtils;
 import manager.love.i.hmmanager.utils.RxBusUtils;
 import manager.love.i.hmmanager.utils.ali.AliPayUtils;
 import manager.love.i.hmmanager.utils.overlayutil.HttpCallBack;
+import manager.love.i.hmmanager.utils.wechatpay.WeChatPayUtils;
 import rx.functions.Action1;
 
 public class CheckInfoActivity extends BaseActivity {
@@ -44,8 +45,9 @@ public class CheckInfoActivity extends BaseActivity {
     RecyclerView content;
 
 
-    private String order_id, studio_id, mTag, update;
+    private String order_id, studio_id, update;
 
+    private String mTag = "2";
     @BindView(R.id.btn_check_info_go_pay)
     Button btn;
 
@@ -71,7 +73,7 @@ public class CheckInfoActivity extends BaseActivity {
                                        intent.putExtra("studio_id", studio_id);
                                        startActivity(intent);
                                        finish();
-                                   } else if (userEvent == 9002) {
+                                   } else if (userEvent == 9003) {
                                        Toast.makeText(CheckInfoActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
                                    }
                                }
@@ -205,9 +207,13 @@ public class CheckInfoActivity extends BaseActivity {
                 if ("1".equals(mTag)) {
                     AliPayUtils.aliPay(result, CheckInfoActivity.this);
                 } else if ("2".equals(mTag)) {
-                    Toast.makeText(CheckInfoActivity.this, "微信支付", Toast.LENGTH_SHORT).show();
+                    WeChatPayUtils.weChatPay(result, CheckInfoActivity.this);
                 }
             }
         }, this).execute("http://hmyc365.net/HM/bg/hmgls/login/register/pay/getSign.do", jsonGetSign);
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

@@ -16,4 +16,5 @@
     <color name="welcomeColorMainBg">#cccccc</color>
     <color name="welcomeColorHintBg">#dddddd</color>
     <color name="welcomeColorTipBg">#FF4081</color>
+    <color name="serviceCityTopColor">#F84355</color>
 </resources>

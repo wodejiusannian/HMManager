@@ -1,6 +1,8 @@
 package manager.love.i.hmmanager.ui.fragment.welcome;
 
 import android.content.res.AssetManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,20 +32,21 @@ import manager.love.i.hmmanager.ui.activity.register.WelcomeHMActivity;
 import manager.love.i.hmmanager.ui.custom.dialog.DialogSelectCity;
 import manager.love.i.hmmanager.ui.fragment.welcome.model.CityModel;
 import manager.love.i.hmmanager.ui.fragment.welcome.model.DistrictModel;
+import manager.love.i.hmmanager.ui.fragment.welcome.model.ManagerCityModel;
 import manager.love.i.hmmanager.ui.fragment.welcome.model.ProvinceModel;
 import manager.love.i.hmmanager.ui.fragment.welcome.xmlutlils.XmlParserHandler;
 import manager.love.i.hmmanager.utils.ActivityUtils;
-import manager.love.i.hmmanager.utils.MathUtils;
+import manager.love.i.hmmanager.utils.BankUtil;
 import manager.love.i.hmmanager.utils.interutlis.StringInter;
 
 
 public class WelPerfectInfoFragment extends BaseFragment {
 
-    private List<String> provinceData;
+    private List<ManagerCityModel> provinceData;
 
-    private Map<String, List<String>> provinceCityData;
+    private Map<String, List<ManagerCityModel>> provinceCityData;
 
-    private Map<String, List<String>> cityCountyData;
+    private Map<String, List<ManagerCityModel>> cityCountyData;
 
     private String strProvince, strCity, card_pic;
 
@@ -59,9 +62,31 @@ public class WelPerfectInfoFragment extends BaseFragment {
     @BindView(R.id.iv_wel_bank_pic)
     ImageView iv;
 
+    TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String nameOfBank = BankUtil.getNameOfBank(s.toString());
+            if (ActivityUtils.isEmpty(nameOfBank)){
+                ets[1].setText(nameOfBank);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+
     @Override
     public int getContentViewId() {
         return R.layout.fragment_wel_perfect_info;
+
     }
 
     @Override
@@ -84,18 +109,24 @@ public class WelPerfectInfoFragment extends BaseFragment {
             input.close();
             provinceList = handler.getDataList();
             for (int i = 0; i < provinceList.size(); i++) {
+                ManagerCityModel managerCityModel = new ManagerCityModel();
                 String provinceName = provinceList.get(i).getName();
-                provinceData.add(provinceName);
+                managerCityModel.name = provinceName;
+                provinceData.add(managerCityModel);
                 List<CityModel> cityList = provinceList.get(i).getCityList();
-                List<String> cityNameData = new ArrayList<>();
+                List<ManagerCityModel> cityNameData = new ArrayList<>();
                 for (int j = 0; j < cityList.size(); j++) {
+                    ManagerCityModel model = new ManagerCityModel();
                     String cityName = cityList.get(j).getName();
-                    cityNameData.add(cityName);
+                    model.name = cityName;
+                    cityNameData.add(model);
                     provinceCityData.put(provinceName, cityNameData);
                     List<DistrictModel> districtList = cityList.get(j).getDistrictList();
-                    List<String> countryNameData = new ArrayList<>();
+                    List<ManagerCityModel> countryNameData = new ArrayList<>();
                     for (int k = 0; k < districtList.size(); k++) {
-                        countryNameData.add(districtList.get(k).getName());
+                        ManagerCityModel model1 = new ManagerCityModel();
+                        model1.name = districtList.get(k).getName();
+                        countryNameData.add(model1);
                         cityCountyData.put(cityName, countryNameData);
                     }
                 }
@@ -105,6 +136,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
         } finally {
 
         }
+        ets[0].addTextChangedListener(mTextWatcher);
     }
 
     @Override
@@ -136,6 +168,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
         });
     }
 
+
     @OnClick({R.id.btn_wel_perfect_info_next, R.id.rl_welcome_main_perfect_province,
             R.id.rl_welcome_main_perfect_city, R.id.rl_welcome_main_perfect_county, R.id.iv_wel_bank_pic,
             R.id.iv_welcome_edit_bank_id_tip, R.id.iv_welcome_edit_bank_name_tip, R.id.tv_welcome_tip_bank})
@@ -148,7 +181,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                 String province = cities[0].getText().toString();
                 String city = cities[1].getText().toString();
                 String county = cities[2].getText().toString();
-                if (ActivityUtils.isEmpty(bankId) && !MathUtils.checkBankCard(bankId)) {
+                if (!ActivityUtils.isEmpty(bankId)) {
                     Toast.makeText(activity, "银行卡号不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -158,7 +191,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                 } else {
                     String[] split = card_pic.split("/");
                     card_pic = split[split.length - 1];
-                    activity.perfectInfo(bankId, bankName, city, province + " " + city + " " + county + " " + detailsAddress, card_pic);
+                    activity.perfectInfo(bankId, bankName, city, province + " " + city + " " + county + " " + detailsAddress, card_pic, detailsAddress);
                     activity.flip(2);
                 }
                 break;
@@ -167,7 +200,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                 break;
             case R.id.rl_welcome_main_perfect_city:
                 if (strProvince != null) {
-                    List<String> strings = provinceCityData.get(strProvince);
+                    List<ManagerCityModel> strings = provinceCityData.get(strProvince);
                     showDialog(1, strings);
                 } else {
                     Toast.makeText(getContext(), "请选择省份", Toast.LENGTH_SHORT).show();
@@ -175,7 +208,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                 break;
             case R.id.rl_welcome_main_perfect_county:
                 if (strCity != null) {
-                    List<String> stringss = cityCountyData.get(strCity);
+                    List<ManagerCityModel> stringss = cityCountyData.get(strCity);
                     showDialog(2, stringss);
                 } else {
                     Toast.makeText(getContext(), "请选择城市", Toast.LENGTH_SHORT).show();
@@ -208,14 +241,14 @@ public class WelPerfectInfoFragment extends BaseFragment {
     /**
      * @param cityType 0是省，1是市，2是县
      */
-    private void showDialog(final int cityType, List<String> cityData) {
+    private void showDialog(final int cityType, List<ManagerCityModel> cityData) {
         final DialogSelectCity dialogSelectCity = new DialogSelectCity(getContext(), cityData);
         dialogSelectCity.setOnResultCity(new DialogSelectCity.OnResultCity() {
             @Override
-            public void onResultCity(String city) {
+            public void onResultCity(ManagerCityModel city) {
                 switch (cityType) {
                     case 0:
-                        strProvince = city;
+                        strProvince = city.name;
                         if (strProvince.equals("北京市") || strProvince.equals("天津市") || strProvince.equals("上海市") || strProvince.contains("重庆市")) {
                             strCity = strProvince;
                             cities[1].setText(strProvince);
@@ -227,17 +260,16 @@ public class WelPerfectInfoFragment extends BaseFragment {
                         strCity = null;
                         break;
                     case 1:
-                        strCity = city;
-                        cities[1].setText(city);
+                        strCity = city.name;
+                        cities[1].setText(city.name);
                         cities[2].setText("请选择区县");
                         break;
                     case 2:
-                        cities[2].setText(city);
+                        cities[2].setText(city.name);
                         break;
                     default:
                         break;
                 }
-                dialogSelectCity.dismiss();
             }
         });
         dialogSelectCity.show();

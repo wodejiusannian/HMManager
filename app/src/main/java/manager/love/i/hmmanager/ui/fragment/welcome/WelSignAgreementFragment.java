@@ -1,20 +1,28 @@
 package manager.love.i.hmmanager.ui.fragment.welcome;
 
+import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseFragment;
+import manager.love.i.hmmanager.ui.activity.register.LyDetailsWebActivity;
 import manager.love.i.hmmanager.ui.activity.register.WelcomeHMActivity;
+import manager.love.i.hmmanager.utils.AsyncHttpUtils;
+import manager.love.i.hmmanager.utils.interutlis.InfoInter;
+import manager.love.i.hmmanager.utils.overlayutil.HttpCallBack;
 
 
 public class WelSignAgreementFragment extends BaseFragment {
@@ -25,7 +33,17 @@ public class WelSignAgreementFragment extends BaseFragment {
     @BindView(R.id.cb_wel_isread_agreement)
     CheckBox checkBox;
 
-    private boolean isCheck = false;
+
+    @BindView(R.id.btn_wel_sign_agree_ok)
+    Button btn_wel_sign_agree_ok;
+
+    private WelcomeHMActivity activity;
+
+    private boolean isMove = true;
+
+    private float mY;
+
+    private String url = "http://hmyc365.net/file/html/app/studio/contractAgreement/protocol.html?name=%s&tel=%s&idCardNo=%s&address=%s&cardBank=%s&cardNo=%s";
 
     @Override
     public int getContentViewId() {
@@ -34,7 +52,7 @@ public class WelSignAgreementFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        activity = (WelcomeHMActivity) getActivity();
     }
 
     @Override
@@ -42,25 +60,45 @@ public class WelSignAgreementFragment extends BaseFragment {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isCheck = isChecked;
+                btn_wel_sign_agree_ok.setEnabled(isChecked);
             }
         });
         mWeb.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent ev) {
-
                 ((WebView) v).requestDisallowInterceptTouchEvent(true);
-
+                if (ev.getAction() == MotionEvent.ACTION_UP) {
+                    if (isMove) {
+                        Intent in = new Intent(getContext(), LyDetailsWebActivity.class);
+                        in.putExtra("url", url);
+                        startActivity(in);
+                    }
+                } else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (Math.abs(ev.getY() - mY) > 5) {
+                        isMove = false;
+                    } else {
+                        isMove = true;
+                    }
+                } else if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+                    isMove = true;
+                    mY = ev.getY();
+                }
                 return false;
             }
         });
-
     }
 
     @Override
     protected void initData() {
-        loadingUrl("https://www.baidu.com/?tn=98012088_5_dg&ch=12");
+        activity.getInfo(new InfoInter() {
+            @Override
+            public void onResult(String name, String phone, String id, String address, String bankId, String bankName) {
+                url = String.format(url, name, phone, id, address, bankName, bankId);
+                loadingUrl(url);
+            }
+        });
+        activity.again();
     }
 
     private void loadingUrl(String url) {
@@ -68,6 +106,7 @@ public class WelSignAgreementFragment extends BaseFragment {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDisplayZoomControls(true);
         mWeb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -97,16 +136,26 @@ public class WelSignAgreementFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.btn_wel_sign_agree_ok})
+    @OnClick({R.id.btn_wel_sign_agree_ok, R.id.tip})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.btn_wel_sign_agree_ok:
-                if (isCheck) {
-                    WelcomeHMActivity activity = (WelcomeHMActivity) getActivity();
-                    activity.welSingAgreement();
-                } else {
-                    Toast.makeText(context, "同意本协议后才能进入下一步", Toast.LENGTH_SHORT).show();
-                }
+                activity.welSingAgreement();
+                break;
+            case R.id.tip:
+                new AsyncHttpUtils(new HttpCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+                        try {
+                            JSONObject obj = new JSONObject(result);
+                            JSONObject body = obj.getJSONObject("body");
+                            String priIntro = body.getString("priIntro");
+                            activity.notifyDialog(priIntro);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, activity).execute("http://hmyc365.net/HM/bg/pub/studio/regist/price/getPriIntro.do", "");
                 break;
             default:
                 break;

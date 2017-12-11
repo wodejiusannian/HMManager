@@ -4,20 +4,21 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import manager.love.i.hmmanager.R;
+import manager.love.i.hmmanager.adapter.CityModelAapter;
+import manager.love.i.hmmanager.adapter.CityModelAapterCopy;
 import manager.love.i.hmmanager.ui.fragment.welcome.model.ManagerCityModel;
+import manager.love.i.hmmanager.utils.interutlis.StringInter;
 
 // ┏┓　　　┏┓
 // ┏┛┻━━━┛┻┓
@@ -36,22 +37,35 @@ import manager.love.i.hmmanager.ui.fragment.welcome.model.ManagerCityModel;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public class DialogSelectCity extends Dialog {
+public class DialogSelectCityCopy extends Dialog {
 
+
+    @BindView(R.id.lv_dialog_select_province)
+    ListView lvProvince;
 
     @BindView(R.id.lv_dialog_select_city)
-    ListView lv;
+    ListView lvCity;
 
     private CityModelAapter adapter;
 
+    private CityModelAapterCopy adapterCityssss;
+
     private List<ManagerCityModel> mData;
 
+    private List<Boolean> booleans;
     private OnResultCity onResultCity;
 
-    public DialogSelectCity(@NonNull Context context, List<ManagerCityModel> data) {
+    private Map<String, List<ManagerCityModel>> maps;
+
+    private List<ManagerCityModel> mDataCitys;
+
+    public DialogSelectCityCopy(@NonNull Context context, Map<String, List<ManagerCityModel>> map, List<ManagerCityModel> data) {
         super(context, R.style.MyDialogStyle);
         if (data != null)
             mData = data;
+        if (map != null) {
+            maps = map;
+        }
     }
 
     public void setOnResultCity(OnResultCity onResultCity) {
@@ -63,15 +77,27 @@ public class DialogSelectCity extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_select_city);
+        setContentView(R.layout.dialog_select_city_copy);
         ButterKnife.bind(this);
-        adapter = new CityModelAapter();
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        booleans = new ArrayList<>();
+        mDataCitys = new ArrayList<>();
+        adapter = new CityModelAapter(mData, getContext(), booleans);
+        adapterCityssss = new CityModelAapterCopy(mDataCitys, getContext());
+        lvCity.setAdapter(adapterCityssss);
+        lvProvince.setAdapter(adapter);
+        lvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onResultCity.onResultCity(mData.get(position));
+                onResultCity.onResultCity(mDataCitys.get(position));
                 dismiss();
+            }
+        });
+        adapter.setOnClickListener(new StringInter() {
+            @Override
+            public void onResult(String result) {
+                mDataCitys.clear();
+                mDataCitys.addAll(maps.get(result));
+                adapterCityssss.notifyDataSetChanged();
             }
         });
     }
@@ -79,48 +105,5 @@ public class DialogSelectCity extends Dialog {
     public interface OnResultCity {
         void onResultCity(ManagerCityModel city);
     }
-
-    private class CityModelAapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return mData.size() == 0 ? 0 : mData.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder h;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_dialog_city, null);
-                h = new ViewHolder(convertView);
-                convertView.setTag(h);
-            } else {
-                h = (ViewHolder) convertView.getTag();
-            }
-            h.te.setText(mData.get(position).name);
-            return convertView;
-        }
-    }
-
-
-    public static class ViewHolder {
-
-        public TextView te;
-
-        public ViewHolder(View view) {
-            te = (TextView) view.findViewById(R.id.tv_item_dialog_city);
-        }
-    }
-
 
 }

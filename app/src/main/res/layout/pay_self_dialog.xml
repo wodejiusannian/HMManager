@@ -16,11 +16,6 @@
         android:text="支付提示"
         android:textColor="#000000" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eeeeee" />
-
     <RadioGroup
         android:id="@+id/rg_pay"
         android:layout_width="match_parent"
@@ -37,7 +32,8 @@
             android:drawableLeft="@mipmap/image_pay_wechat"
             android:drawableRight="@drawable/select_pay"
             android:padding="8dp"
-            android:text="   微信支付" />
+            android:text="   微信支付"
+            android:textColor="@drawable/selector_ac_88" />
 
         <RadioButton
             android:id="@+id/rb_main_alipay"
@@ -48,9 +44,15 @@
             android:drawableLeft="@mipmap/image_pay_ali"
             android:drawableRight="@drawable/select_pay"
             android:padding="8dp"
-            android:text="  支付宝支付" />
+            android:text="  支付宝支付"
+            android:textColor="@drawable/selector_ac_88" />
 
     </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
 
     <LinearLayout
         android:layout_width="match_parent"

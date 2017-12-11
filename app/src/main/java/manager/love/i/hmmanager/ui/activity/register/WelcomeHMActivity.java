@@ -2,6 +2,7 @@ package manager.love.i.hmmanager.ui.activity.register;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,8 +32,10 @@ import manager.love.i.hmmanager.ui.fragment.welcome.WelRegisterInfoFragment;
 import manager.love.i.hmmanager.ui.fragment.welcome.WelSignAgreementFragment;
 import manager.love.i.hmmanager.utils.ActivityUtils;
 import manager.love.i.hmmanager.utils.HttpUtils;
+import manager.love.i.hmmanager.utils.ImageUtils;
 import manager.love.i.hmmanager.utils.PermissionsUtils;
 import manager.love.i.hmmanager.utils.RxBusUtils;
+import manager.love.i.hmmanager.utils.interutlis.InfoInter;
 import manager.love.i.hmmanager.utils.interutlis.StringInter;
 import rx.functions.Action1;
 
@@ -52,8 +55,15 @@ public class WelcomeHMActivity extends BaseActivity {
 
     private TipDialog tipDialog;
     private StringInter stringInter;
-
+    private InfoInter infoInter;
     private String update;
+
+    private String mName;
+    private String mPhone;
+    private String mID;
+    private String mAddress;
+    private String mCardBank;
+    private String mCardNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +105,13 @@ public class WelcomeHMActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-        update = getIntent().getStringExtra("update");
-        String studio_id = getIntent().getStringExtra("studio_id");
+        Intent intent = getIntent();
+        update = intent.getStringExtra("update");
+        String studio_id = intent.getStringExtra("studio_id");
+        String city_fzr = intent.getStringExtra("city_fzr");
+        String city = intent.getStringExtra("city");
+        map.put("city_fzr", city_fzr);
+        map.put("city", city);
         map.put("studio_id", studio_id);
     }
 
@@ -208,16 +223,14 @@ public class WelcomeHMActivity extends BaseActivity {
             if (data != null) {
                 loadingDialog();
                 final ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
-                Message msg = Message.obtain();
-                Bundle bundle = new Bundle();
-                bundle.putString("url", list.get(0));
-                msg.setData(bundle);
-                handler.sendMessage(msg);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        Bitmap ratio = ImageUtils.getSmallBitmap(list.get(0));
+                        String s = ImageUtils.saveBitMapToFile(WelcomeHMActivity.this, "ilove.png", ratio, true);
+                        File file = new File(s);
                         try {
-                            String imageUrl = HttpUtils.uploadFile(new File(list.get(0)), "http://hmyc365.net/HM/bg/system/file/picture/picUpload.do");
+                            String imageUrl = HttpUtils.uploadFile(file, "http://hmyc365.net/HM/bg/system/file/picture/picUpload.do");
                             imageUrl = imageUrl.substring(2, imageUrl.length() - 2);
                             Message msg = Message.obtain();
                             Bundle bundle = new Bundle();
@@ -276,6 +289,9 @@ public class WelcomeHMActivity extends BaseActivity {
 
 
     public void registerInfo(String name, String id, String phone, String id_pic, String referee_name, String referee_id) {
+        mName = name;
+        mPhone = phone;
+        mID = id;
         map.put("name", name);
         map.put("phone", phone);
         map.put("id_number", id);
@@ -284,14 +300,27 @@ public class WelcomeHMActivity extends BaseActivity {
         map.put("referee_id", referee_id);
     }
 
-    public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic) {
+    public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic, String xiangxi) {
+        mAddress = detailsAddress;
+        mCardBank = bankName;
+        mCardNo = bankId;
         map.put("card_no", bankId);
         map.put("card_bank", bankName);
-        map.put("city", city);
         map.put("address", detailsAddress);
         map.put("card_pic", card_pic);
+        String[] split = detailsAddress.split(" ");
+        map.put("address_sheng", split[0]);
+        map.put("address_shi", split[1]);
+        map.put("address_xian", split[2]);
+        map.put("address_xiangxi", xiangxi);
+        if (infoInter != null)
+            infoInter.onResult(mName, mPhone, mID, mAddress,mCardNo,mCardBank);
     }
 
+    public void again() {
+        if (infoInter != null)
+            infoInter.onResult(mName, mPhone, mID, mAddress,mCardNo,mCardBank);
+    }
 
     public void welSingAgreement() {
         String json = HttpUtils.toJson(map);
@@ -322,10 +351,16 @@ public class WelcomeHMActivity extends BaseActivity {
 
     public void notifyPic(int dialogMessage) {
         if (tipDialog == null) {
-            tipDialog = new TipDialog(this,dialogMessage);
+            tipDialog = new TipDialog(this, dialogMessage);
         } else {
             tipDialog.notifyPic(dialogMessage);
         }
         tipDialog.show();
+    }
+
+    public void getInfo(InfoInter infoInter) {
+        if (infoInter != null) {
+            this.infoInter = infoInter;
+        }
     }
 }

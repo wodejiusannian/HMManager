@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import manager.love.i.hmmanager.R;
-import manager.love.i.hmmanager.ui.activity.register.WelcomeHMActivity;
+import manager.love.i.hmmanager.ui.activity.register.ServiceCityActivity;
 import manager.love.i.hmmanager.utils.ActivityUtils;
 
 
@@ -51,7 +51,7 @@ public class LoginDialog extends Dialog {
         welcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getContext().startActivity(new Intent(getContext(), WelcomeHMActivity.class));
+                getContext().startActivity(new Intent(getContext(), ServiceCityActivity.class));
             }
         });
 

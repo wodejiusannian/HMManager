@@ -94,6 +94,8 @@ public class HttpUtils {
             URL url = new URL(RequestURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(TIME_OUT);
+
+
             conn.setConnectTimeout(TIME_OUT);
             conn.setDoInput(true); // 允许输入流
             conn.setDoOutput(true); // 允许输出流
@@ -117,8 +119,6 @@ public class HttpUtils {
                  * 这里重点注意： name里面的值为服务端需要key 只有这个key 才可以得到对应的文件
                  * filename是文件的名字，包含后缀名的 比如:abc.png
                  */
-
-
                 sb.append("Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
                         + file.getName() + "\"" + LINE_END);
                 sb.append("Content-Type: application/octet-stream; charset=" + CHARSET + LINE_END);
@@ -138,8 +138,8 @@ public class HttpUtils {
                 /**
                  * 获取响应码 200=成功 当响应成功，获取响应的流
                  */
-                int res = conn.getResponseCode();
-                Log.e(TAG, "response code:" + res);
+             /*   int res = conn.getResponseCode();
+                Log.e(TAG, "response code:" + res);*/
                 // if(res==200)
                 // {
                 Log.e(TAG, "request success");

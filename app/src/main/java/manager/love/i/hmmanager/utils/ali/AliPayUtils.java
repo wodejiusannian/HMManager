@@ -53,7 +53,7 @@ public class AliPayUtils {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         RxBusUtils.getDefault().post(9000);
                     } else {
-                        RxBusUtils.getDefault().post(9002);
+                        RxBusUtils.getDefault().post(9003);
                     }
                     break;
                 }

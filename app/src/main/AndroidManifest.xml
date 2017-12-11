@@ -162,14 +162,13 @@
         <activity android:name=".ui.activity.register.RecoPersonActivity" />
         <activity android:name=".ui.activity.register.LiJiYuYueStudioSelectCityActivity" />
         <activity android:name=".LoadingActivity" />
-        <activity android:name=".ui.activity.register.CheckInfoActivity"></activity>
-        <activity android:name=".ui.activity.register.CheckInfoAfterActivity"></activity>
+        <activity android:name=".ui.activity.register.CheckInfoActivity" />
+        <activity android:name=".ui.activity.register.CheckInfoAfterActivity" />
+        <activity android:name=".ui.activity.register.LyDetailsWebActivity"></activity>
         <!-- 主activity -->
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask">
-
-        </activity>
+            android:launchMode="singleTask"></activity>
         <activity
             android:name=".SplashActivity"
             android:launchMode="singleInstance"
@@ -314,20 +313,37 @@
         <activity android:name=".ui.activity.ShopRecommendActivity" />
         <activity
             android:name=".ui.activity.register.WelcomeHMActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <!-- 支付宝支付的页面 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
+            android:screenOrientation="behind" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name=".wxapi.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.activity.register.ServiceCityActivity"></activity>
     </application>
 
 </manifest>
