@@ -24,6 +24,6 @@ import rx.Observable;
 // ┗┻┛　┗┻┛
 public interface HistoricalIncomeService {
 
-    @POST("stu/wallet/money/getStuSr.do")
+    @POST("stu/wallet/money/getStuSrV1.do")
     Observable<HistoricalIncome> historicalInCome(@Query("studio_id") String studio_id);
 }

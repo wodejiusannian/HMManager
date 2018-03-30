@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorMainBg"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="manager.love.i.hmmanager.ui.activity.DetailsActivity">
 
 
@@ -101,6 +102,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/shape_radios_write_4dp"
                 android:clickable="true"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:padding="20dp">
 

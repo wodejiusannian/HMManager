@@ -23,6 +23,7 @@ import rx.subjects.Subject;
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
 public class RxBusUtils {
+
     private static volatile RxBusUtils defaultInstance;
 
     private final Subject<Object, Object> bus;
@@ -54,7 +55,6 @@ public class RxBusUtils {
     public <T> Observable<T> toObservable(Class<T> eventType) {
         return bus.ofType(eventType);
     }
-
 
 
 }

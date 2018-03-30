@@ -105,6 +105,11 @@ public class CheckInfoActivity extends BaseActivity {
             mData.add(new CheckInfo("银行卡号:", obj.getString("card_no")));
             mData.add(new CheckInfo("开户行:", obj.getString("card_bank")));
             mData.add(new CheckInfo("地址信息:", obj.getString("address")));
+            String grade = obj.getString("grade");
+            if ("1".equals(grade))
+                mData.add(new CheckInfo("工作室等级:", "见习工作室"));
+            else
+                mData.add(new CheckInfo("工作室等级:", "认证工作室"));
             studio_id = obj.getString("studio_id");
         } catch (Exception e) {
             e.printStackTrace();

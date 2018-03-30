@@ -43,7 +43,7 @@ public class WelSignAgreementFragment extends BaseFragment {
 
     private float mY;
 
-    private String url = "http://hmyc365.net/file/html/app/studio/contractAgreement/protocol.html?name=%s&tel=%s&idCardNo=%s&address=%s&cardBank=%s&cardNo=%s";
+    private String url;
 
     @Override
     public int getContentViewId() {
@@ -54,6 +54,7 @@ public class WelSignAgreementFragment extends BaseFragment {
     protected void initView() {
         activity = (WelcomeHMActivity) getActivity();
     }
+
 
     @Override
     protected void setData() {
@@ -93,15 +94,21 @@ public class WelSignAgreementFragment extends BaseFragment {
     protected void initData() {
         activity.getInfo(new InfoInter() {
             @Override
-            public void onResult(String name, String phone, String id, String address, String bankId, String bankName) {
-                url = String.format(url, name, phone, id, address, bankName, bankId);
+            public void onResult(String name, String phone, String id, String address, String bankId, String bankName, String gradle) {
+                if ("1".equals(gradle)) {
+                    url = "http://hmyc365.net/hmyc/file/hm-system/html/contract-trainee.html" + "?userName=" + name + "&idNum=" + id +
+                            "&address=" + address + "&contactInformation=" + phone + "&openBank=" + bankName + "&bankCardNum" + bankId;
+                } else {
+                    url = "http://hmyc365.net/hmyc/file/hm-system/html/contract-authentication.html" + "?userName=" + name + "&idNum=" + id +
+                            "&address=" + address + "&contactInformation=" + phone + "&openBank=" + bankName + "&bankCardNum" + bankId;
+                }
                 loadingUrl(url);
             }
         });
         activity.again();
     }
 
-    private void loadingUrl(String url) {
+    private void loadingUrl(String surl) {
         WebSettings webSettings = mWeb.getSettings();
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
@@ -132,7 +139,7 @@ public class WelSignAgreementFragment extends BaseFragment {
         };
         mWeb.setWebChromeClient(wvcc);
         if (url != null) {
-            mWeb.loadUrl(url);
+            mWeb.loadUrl(surl);
         }
     }
 

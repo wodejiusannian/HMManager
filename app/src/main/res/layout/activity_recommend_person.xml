@@ -8,14 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#ac0000">
+        android:background="#fff">
+
+        <include layout="@layout/include_back"></include>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="推荐人选择"
-            android:textColor="#fff"
+            android:textColor="#ac0000"
             android:textSize="18sp" />
 
         <TextView
@@ -26,7 +28,7 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:text="地址"
-            android:textColor="#fff" />
+            android:textColor="#ac0000" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

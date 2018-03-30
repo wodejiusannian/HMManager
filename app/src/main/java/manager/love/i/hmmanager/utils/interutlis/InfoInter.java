@@ -18,5 +18,5 @@ package manager.love.i.hmmanager.utils.interutlis;
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
 public interface InfoInter {
-    void onResult(String name, String phone, String id, String address,String cardNo,String bankName);
+    void onResult(String name, String phone, String id, String address,String cardNo,String bankName,String gradle);
 }

@@ -1,6 +1,6 @@
 package manager.love.i.hmmanager.inter.api;
 
-import manager.love.i.hmmanager.bean.InDoorOrder;
+import manager.love.i.hmmanager.bean.UserInfo;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -22,8 +22,8 @@ import rx.Observable;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public interface UserInDoorOrderService {
-    @POST("admiral/app/hmgls/service/order/listOrder.htm")
-    Observable<InDoorOrder> getInDoorOrder(@Query("token") String token, @Query("sellerUserId") String sellerUserId, @Query("deleteStatusPj") String deleteStatus,@Query("orderType") String orderType);
+public interface UserAcceptOrderKillAcaursService {
 
+    @POST("admiral/app/hmgls/service/order/acceptOrder.htm")
+    Observable<UserInfo> acceptOrder(@Query("token") String token, @Query("orderId") String orderId, @Query("orderType") String orderType);
 }

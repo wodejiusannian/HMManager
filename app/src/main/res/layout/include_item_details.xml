@@ -38,6 +38,7 @@
                 android:layout_marginLeft="5dp" />
 
             <TextView
+                android:id="@+id/big_size_text_tip"
                 style="@style/big_size_text_tip"
                 android:layout_marginLeft="44dp"
                 android:text="服饰量:" />

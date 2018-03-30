@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -20,6 +21,12 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,10 +56,16 @@ public class RecoPersonActivity extends BaseActivity {
     @BindViews({R.id.tv_ly_commendpeople_city})
     TextView[] tvs;
 
+    public void back(View view) {
+        finish();
+    }
+
     private BaseRecycleAdapter<LyCommendPeople.BodyBean> adapter;
 
     private List<LyCommendPeople.BodyBean> mData = new ArrayList<>();
     private LocationClient mLocClient;
+
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +80,7 @@ public class RecoPersonActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        userId = getIntent().getStringExtra("userId");
         adapter = new BaseRecycleAdapter<LyCommendPeople.BodyBean>(this, mData, R.layout.item_ly_reommend_people) {
             @Override
             public void bindData(BaseViewHolder holder, final LyCommendPeople.BodyBean lyCommendPeople, int position) {
@@ -80,10 +94,54 @@ public class RecoPersonActivity extends BaseActivity {
                 root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.putExtra("id", lyCommendPeople);
-                        setResult(100, intent);
-                        finish();
+                        if (ActivityUtils.isEmpty(userId)) {
+                            RequestParams pa = new RequestParams("http://hmyc365.net/admiral/app/hmgls/data/manager/updateReferee.htm");
+                            pa.addBodyParameter("userId", userId);
+                            pa.addBodyParameter("refereeId", lyCommendPeople.getStudio_id() + "");
+                            pa.addBodyParameter("refereeName", lyCommendPeople.getName_gzs());
+                            x.http().post(pa, new Callback.CacheCallback<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    try {
+                                        JSONObject obj = new JSONObject(result);
+                                        String ret = obj.getString("ret");
+                                        if ("0".equals(ret)) {
+                                            Toast.makeText(RecoPersonActivity.this, "选择推荐人成功", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(RecoPersonActivity.this, "选择推荐人失败,请重新选择", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable ex, boolean isOnCallback) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(CancelledException cex) {
+
+                                }
+
+                                @Override
+                                public void onFinished() {
+
+                                }
+
+                                @Override
+                                public boolean onCache(String result) {
+                                    return false;
+                                }
+                            });
+                        } else {
+                            Intent intent = new Intent();
+                            intent.putExtra("id", lyCommendPeople);
+                            setResult(100, intent);
+                            finish();
+                        }
                     }
                 });
             }

@@ -7,22 +7,50 @@
     android:background="#fff"
     tools:context="manager.love.i.hmmanager.ui.activity.register.ServiceCityActivity">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitStart"
-        android:src="@mipmap/hm_bg_service_city" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:scaleType="fitXY"
+            android:src="@mipmap/hm_bg_service_city" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_service_city_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/shape_service_city_edit"
         android:gravity="center"
         android:padding="15dp"
-        android:text="点击选择服务城市"
+        android:text="点击选择学习城市"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/tv_service_city_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_service_city_edit"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_service_city_edit"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="(点击选择学习时间)"
         android:textColor="#fff" />
 
     <TextView

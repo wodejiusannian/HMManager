@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -218,6 +219,7 @@ public class ImageUtils {
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inJustDecodeBounds = false;
         Bitmap bm = BitmapFactory.decodeFile(filePath, options);
+        Log.e("TAG", "run: ---"+bm.getByteCount());
         if (bm == null) {
             return null;
         }

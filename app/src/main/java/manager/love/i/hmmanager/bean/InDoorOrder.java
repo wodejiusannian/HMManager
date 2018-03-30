@@ -82,6 +82,15 @@ public class InDoorOrder {
         private String box_money;
         private String clothes_num;
         private String state;
+        private String orderType;
+
+        public String getOrderType() {
+            return orderType;
+        }
+
+        public void setOrderType(String orderType) {
+            this.orderType = orderType;
+        }
 
         public String getState() {
             return state;

@@ -1,9 +1,4 @@
-package manager.love.i.hmmanager.inter.api;
-
-import manager.love.i.hmmanager.bean.InDoorOrder;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
-import rx.Observable;
+package manager.love.i.hmmanager.utils;
 
 // ┏┓　　　┏┓
 // ┏┛┻━━━┛┻┓
@@ -22,8 +17,6 @@ import rx.Observable;
 // ┗┓┓┏━┳┓┏┛
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
-public interface UserInDoorOrderService {
-    @POST("admiral/app/hmgls/service/order/listOrder.htm")
-    Observable<InDoorOrder> getInDoorOrder(@Query("token") String token, @Query("sellerUserId") String sellerUserId, @Query("deleteStatusPj") String deleteStatus,@Query("orderType") String orderType);
-
+public class TokenUtils {
+    public static String token = "82D5FBD40259C743ADDEF14D0E22F347";
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lv_bottom_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_radios_write_4dp"
+        android:layout_above="@+id/tip">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/cancel"
+        android:background="#00000000" />
+
+    <Button
+        android:id="@+id/cancel"
+        style="@style/button_sure"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:text="取消" />
+</RelativeLayout>

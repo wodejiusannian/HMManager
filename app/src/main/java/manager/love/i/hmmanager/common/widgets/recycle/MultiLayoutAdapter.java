@@ -107,7 +107,11 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (TextUtils.equals("18", type)) {
+        if (TextUtils.equals("1", type)) {
+            three.tvThree.setTextColor(Color.parseColor("#61d0f0"));
+            three.ivThree.setImageResource(R.mipmap.hm_kill_auarus);
+            three.tvKind.setText("除螨服务");
+        } else if (TextUtils.equals("18", type)) {
             three.tvThree.setTextColor(Color.parseColor("#ac0000"));
             three.ivThree.setImageResource(R.mipmap.hm_wallet_income_order);
             three.tvKind.setText("上门服务");

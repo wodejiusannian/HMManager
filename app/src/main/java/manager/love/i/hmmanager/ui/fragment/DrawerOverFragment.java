@@ -26,11 +26,12 @@ import manager.love.i.hmmanager.base.BaseFragment;
 import manager.love.i.hmmanager.bean.InDoorOrder;
 import manager.love.i.hmmanager.common.widgets.recycle.BaseRecycleAdapter;
 import manager.love.i.hmmanager.common.widgets.recycle.BaseViewHolder;
-import manager.love.i.hmmanager.inter.Network;
+import manager.love.i.hmmanager.inter.NetworkCopy;
 import manager.love.i.hmmanager.ui.activity.DetailsActivity;
 import manager.love.i.hmmanager.utils.RvDecorationUtils;
 import manager.love.i.hmmanager.utils.SPUtils;
 import manager.love.i.hmmanager.utils.ToastUtils;
+import manager.love.i.hmmanager.utils.TokenUtils;
 import manager.love.i.hmmanager.utils.glideutils.GlideRoundTransform;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -75,8 +76,12 @@ public class DrawerOverFragment extends BaseFragment implements BGARefreshLayout
     @Override
     protected void initView() {
         stuId = SPUtils.getStuId(getContext());
-        state_pj = getArguments().getString("state_pj");
+        Bundle bundle = getArguments();
+        state_pj = bundle.getString("state_pj");
+        orderType = bundle.getString("orderType");
     }
+
+    private String orderType;
 
     @Override
     protected void setData() {
@@ -96,32 +101,35 @@ public class DrawerOverFragment extends BaseFragment implements BGARefreshLayout
                 Button stateTop = holder.getView(R.id.btn_state_top);
                 Button stateBottom = holder.getView(R.id.btn_state_bottom);
                 TextView customerName = holder.getView(R.id.tv_item_rv_customer_name);
+                TextView customerTip = holder.getView(R.id.big_size_text_tip);
                 TextView customerNumber = holder.getView(R.id.tv_item_rv_customer_number);
                 TextView customerTime = holder.getView(R.id.tv_item_rv_customer_time);
                 TextView customerAddress = holder.getView(R.id.tv_item_rv_customer_address);
                 ImageView customerPhoto = holder.getView(R.id.tv_item_rv_customer_photo);
                 TextView customerPlace = holder.getView(R.id.tv_item_rv_customer_place_time);
                 switch (bodyBean.getState()) {
+                    case "1":
                     case "11"://工作室已接单
                     {
                         stateTop.setText("进行中");
                         stateBottom.setText("服务中");
                     }
                     break;
+                    case "3":
                     case "100"://用户付款工作室未接单用户申请退款
                     {
                         stateTop.setText("进行中");
                         stateBottom.setText("退款中");
                     }
                     break;
-
+                    case "4":
                     case "110"://用户付款工作室已接单用户申请退款
                     {
                         stateTop.setText("进行中");
                         stateBottom.setText("退款中");
                     }
                     break;
-
+                    case "2":
                     case "12"://用户点击已完成订单（evaluate：0未评价；1已评价；-1已投诉）
                     {
                         stateTop.setText("已完成");
@@ -148,6 +156,7 @@ public class DrawerOverFragment extends BaseFragment implements BGARefreshLayout
                         }
                     }
                     break;
+                    case "6":
                     case "1001"://用户付款工作室未接单用户申请退款,已退款
                     {
                         stateTop.setText("已完成");
@@ -160,6 +169,7 @@ public class DrawerOverFragment extends BaseFragment implements BGARefreshLayout
                         stateBottom.setText("已退款");
                     }
                     break;
+                    case "5":
                     case "101"://用户付款工作室拒绝接单,已退款
                     {
                         stateTop.setText("已完成");
@@ -170,11 +180,16 @@ public class DrawerOverFragment extends BaseFragment implements BGARefreshLayout
                     default:
                         break;
                 }
-
+                if ("1".equals(bodyBean.getOrderType())) {
+                    customerTip.setText("除螨：");
+                    customerNumber.setText("标准" + bodyBean.getClothes_num() + "袋");
+                } else {
+                    customerTip.setText("服饰量：");
+                    customerNumber.setText(bodyBean.getClothes_num());
+                }
                 customerName.setText(bodyBean.getJd_name());
                 customerAddress.setText(bodyBean.getJd_address());
                 customerTime.setText(bodyBean.getJd_time());
-                customerNumber.setText(bodyBean.getClothes_num());
                 customerPlace.setText(bodyBean.getXd_time());
 
                 Glide.with(getContext())
@@ -263,7 +278,7 @@ public class DrawerOverFragment extends BaseFragment implements BGARefreshLayout
      * 处理集合数据
      * */
     private void initInDoorOrderData() {
-        Network.userInDoorOrder().getInDoorOrder(stuId, state_pj)
+        NetworkCopy.userInDoorOrder().getInDoorOrder(TokenUtils.token, stuId, state_pj, orderType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(inDoorOrder);

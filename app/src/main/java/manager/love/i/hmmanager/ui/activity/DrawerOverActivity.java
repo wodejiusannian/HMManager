@@ -54,16 +54,18 @@ public class DrawerOverActivity extends BaseActivity {
             DrawerOverFragment fragment = new DrawerOverFragment();
             Bundle bundle = new Bundle();
             if (i == 0) {
-                bundle.putString("state_pj", "11,100,110");
+                bundle.putString("state_pj", "11,100,110,1001,12,1101,101,33");
+                bundle.putString("orderType", "3");
                 fragment.setArguments(bundle);
             } else {
-                bundle.putString("state_pj", "1001,12,1101,101,33");
+                bundle.putString("state_pj", "1,2,3,4,5,6");
+                bundle.putString("orderType", "1");
                 fragment.setArguments(bundle);
             }
             fragments.add(fragment);
         }
-        titles.add("未完成");
-        titles.add("已完成");
+        titles.add("上门服务");
+        titles.add("除螨服务");
         adapter.notifyDataSetChanged();
         int page = getIntent().getIntExtra("page", 0);
         vpMsg.setCurrentItem(page);

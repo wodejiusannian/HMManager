@@ -69,7 +69,7 @@ public class CheckInfoAfterActivity extends BaseActivity {
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.tv_go_updata_info:
-                Intent intent = new Intent(this, WelcomeHMActivity.class);
+                Intent intent = new Intent(this, ServiceCityActivity.class);
                 intent.putExtra("update", update);
                 intent.putExtra("studio_id", studio_id);
                 startActivity(intent);
@@ -124,6 +124,11 @@ public class CheckInfoAfterActivity extends BaseActivity {
                     mData.add(new CheckInfo("银行卡号:", obj.getString("card_no")));
                     mData.add(new CheckInfo("开户行:", obj.getString("card_bank")));
                     mData.add(new CheckInfo("地址信息:", obj.getString("address")));
+                    int grade = obj.getInt("grade");
+                    if (1 == grade)
+                        mData.add(new CheckInfo("工作室等级:", "见习工作室"));
+                    else
+                        mData.add(new CheckInfo("工作室等级:", "认证工作室"));
                     adapter.notifyDataSetChanged();
                     refuse_reason = obj.getString("refuse_reason");
                 } catch (Exception e) {

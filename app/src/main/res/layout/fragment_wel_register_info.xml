@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#fff"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context="manager.love.i.hmmanager.ui.fragment.welcome.WelRegisterInfoFragment">
     <!--
     <style name="welcomeTextMain">
@@ -41,9 +41,9 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@mipmap/hm_welcome_registerinfo" />
 
         <include layout="@layout/include_welcome_main_bg_id"></include>
@@ -54,9 +54,15 @@
 
         <include layout="@layout/include_welcome_edit_id"></include>
 
+        <include layout="@layout/include_welcome_edit_edu"></include>
+
         <include layout="@layout/include_welcome_main_bg_phone"></include>
 
         <include layout="@layout/include_welcome_edit_phone"></include>
+
+        <include layout="@layout/include_welcome_main_bg_service_city"></include>
+
+        <include layout="@layout/include_welcome_edit_service_city"></include>
 
         <include layout="@layout/include_welcome_main_bg_recommend"></include>
 

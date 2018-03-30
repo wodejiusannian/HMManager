@@ -1,5 +1,7 @@
 package manager.love.i.hmmanager.ui.fragment.welcome;
 
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,10 +16,16 @@ import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -25,7 +33,10 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseFragment;
+import manager.love.i.hmmanager.common.widgets.dialog.BottomListDialog;
 import manager.love.i.hmmanager.ui.activity.register.WelcomeHMActivity;
+import manager.love.i.hmmanager.ui.custom.dialog.DialogSelectCityCopy;
+import manager.love.i.hmmanager.ui.fragment.welcome.model.ManagerCityModel;
 import manager.love.i.hmmanager.utils.ActivityUtils;
 import manager.love.i.hmmanager.utils.AsyncHttpUtils;
 import manager.love.i.hmmanager.utils.HttpUtils;
@@ -44,7 +55,7 @@ public class WelRegisterInfoFragment extends BaseFragment {
 
     WelcomeHMActivity activity;
 
-    @BindViews({R.id.tv_wel_recommend_person})
+    @BindViews({R.id.tv_wel_recommend_person, R.id.et_welcome_edit_edu, R.id.et_welcome_edit_service_city})
     TextView[] tvs;
 
     @BindViews({R.id.et_wel_edit_name, R.id.et_welcome_edit_id,
@@ -82,6 +93,8 @@ public class WelRegisterInfoFragment extends BaseFragment {
                     ets[1].setText(body.getString("id_number"));
                     ets[2].setText(body.getString("phone"));
                     tvs[0].setText(body.getString("referee_name"));
+                    tvs[1].setText(body.getString("education"));
+                    tvs[2].setText(body.getString("city"));
                     btnNext.setEnabled(true);
                     isUpdate = true;
                 } catch (JSONException e) {
@@ -114,7 +127,8 @@ public class WelRegisterInfoFragment extends BaseFragment {
     @OnClick({R.id.btn_wel_register_info_next, R.id.iv_welcome_id_image,
             R.id.tv_wel_recommend_person, R.id.iv_welcome_edit_name_tip,
             R.id.iv_welcome_edit_id_tip, R.id.iv_welcome_edit_phone_tip,
-            R.id.iv_welcome_edit_recommend_person_tip, R.id.tv_welcome_tip_id})
+            R.id.iv_welcome_edit_recommend_person_tip, R.id.tv_welcome_tip_id,
+            R.id.et_welcome_edit_edu, R.id.et_welcome_edit_service_city})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.tv_welcome_tip_id:
@@ -125,6 +139,16 @@ public class WelRegisterInfoFragment extends BaseFragment {
                 String id = ets[1].getText().toString();
                 String phone = ets[2].getText().toString();
                 final String recommend = tvs[0].getText().toString();
+                String edusss = tvs[1].getText().toString();
+                String serviceCity = tvs[2].getText().toString();
+                if (!ActivityUtils.isEmpty(edusss)) {
+                    Toast.makeText(activity, "请选择学历", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!ActivityUtils.isEmpty(serviceCity)) {
+                    Toast.makeText(activity, "请选择服务城市", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!MathUtils.isLegalId(id)) {
                     Toast.makeText(activity, "身份证号格式不正确，请重新输入", Toast.LENGTH_SHORT).show();
                     return;
@@ -137,12 +161,12 @@ public class WelRegisterInfoFragment extends BaseFragment {
                     Toast.makeText(activity, "手机号码格式不正确，请重新输入", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!ActivityUtils.isEmpty(name) || !ActivityUtils.isEmpty(id) || !ActivityUtils.isEmpty(phone) || !ActivityUtils.isEmpty(id_pic)) {
+                if (!ActivityUtils.isEmpty(edusss) || !ActivityUtils.isEmpty(serviceCity) || !ActivityUtils.isEmpty(name) || !ActivityUtils.isEmpty(id) || !ActivityUtils.isEmpty(phone) || !ActivityUtils.isEmpty(id_pic)) {
                     Toast.makeText(activity, "请检查数据是否填写完整", Toast.LENGTH_SHORT).show();
                 } else {
                     String[] split = id_pic.split("/");
                     id_pic = split[split.length - 1];
-                    activity.registerInfo(name, id, phone, id_pic, recommend, recommendid);
+                    activity.registerInfo(name, id, phone, id_pic, recommend, recommendid, edusss, serviceCity);
                     activity.flip(1);
                 }
                 break;
@@ -179,8 +203,123 @@ public class WelRegisterInfoFragment extends BaseFragment {
             case R.id.iv_welcome_edit_recommend_person_tip:
                 activity.notifyDialog("推荐人只能选择现有的基地/工作室");
                 break;
+            case R.id.et_welcome_edit_edu:
+                RequestParams pa = new RequestParams("http://hmyc365.net/admiral/common/tag/getTag.htm");
+                pa.addBodyParameter("token", "82D5FBD40259C743ADDEF14D0E22F347");
+                pa.addBodyParameter("type", "2");
+                x.http().post(pa, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        try {
+                            JSONObject obj = new JSONObject(result);
+                            JSONArray body = obj.getJSONArray("body");
+                            String[] edus = new String[body.length()];
+                            for (int i = 0; i < body.length(); i++) {
+                                edus[i] = body.getJSONObject(i).getString("name");
+                            }
+                            BottomListDialog dialog = new BottomListDialog(getContext(), edus);
+                            dialog.setOnItemClickListener(new BottomListDialog.OnResultEdu() {
+                                @Override
+                                public void onResultEdu(String edu) {
+                                    tvs[1].setText(edu);
+                                }
+                            });
+                            dialog.show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+                break;
+            case R.id.et_welcome_edit_service_city:
+                editCity();
+                break;
             default:
                 break;
+        }
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            switch (what) {
+                case 1:
+                    showSelectCityDialog();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    private Map<String, List<ManagerCityModel>> provinceAndCity = new HashMap<>();
+
+    private void showSelectCityDialog() {
+        DialogSelectCityCopy dialog = new DialogSelectCityCopy(getContext(), provinceAndCity, mData);
+        dialog.setOnResultCity(new DialogSelectCityCopy.OnResultCity() {
+            @Override
+            public void onResultCity(ManagerCityModel city) {
+                tvs[2].setText(city.name);
+            }
+        });
+        dialog.show();
+    }
+
+    private List<ManagerCityModel> mData = new ArrayList<>();
+
+    private void editCity() {
+        if (mData == null) {
+            throw new NullPointerException("data is empty");
+        }
+        if (mData.size() > 0) {
+            handler.sendEmptyMessage(1);
+        } else {
+            new AsyncHttpUtils(new HttpCallBack() {
+                @Override
+                public void onResponse(String result) {
+                    try {
+                        JSONObject obj = new JSONObject(result);
+                        JSONArray body = obj.getJSONArray("body");
+                        for (int i = 0; i < body.length(); i++) {
+                            JSONObject jsonObject = body.getJSONObject(i);
+                            ManagerCityModel model = new ManagerCityModel();
+                            String pname = jsonObject.getString("pname");
+                            model.name = pname;
+                            model.code = jsonObject.getString("pcode");
+                            mData.add(model);
+                            JSONArray citys = jsonObject.getJSONArray("citys");
+                            List<ManagerCityModel> data = new ArrayList<ManagerCityModel>();
+                            for (int j = 0; j < citys.length(); j++) {
+                                JSONObject o = citys.getJSONObject(j);
+                                ManagerCityModel models = new ManagerCityModel();
+                                models.name = o.getString("cname");
+                                models.code = o.getString("ccode");
+                                data.add(models);
+                            }
+                            provinceAndCity.put(pname, data);
+                        }
+                        handler.sendEmptyMessage(1);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, getActivity()).execute("http://hmyc365.net/HM/bg/pub/city/info/getProCity.do", "");
         }
     }
 
@@ -221,6 +360,7 @@ public class WelRegisterInfoFragment extends BaseFragment {
 
         @Override
         public void afterTextChanged(Editable s) {
+
         }
     };
 }

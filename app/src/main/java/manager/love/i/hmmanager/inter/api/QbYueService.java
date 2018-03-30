@@ -23,7 +23,7 @@ import rx.Observable;
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
 public interface QbYueService {
-
-    @POST("stu/wallet/money/getQbYue.do")
+    //type：18：上门服务；27：小蓝盒；36：衣服补差价；56:365购买；74：用户购收纳盒；1：除螨服务；
+    @POST("stu/wallet/money/getQbYueV1.do")
     Observable<QbYue> getQbYue(@Query("studio_id") String studio_id);
 }

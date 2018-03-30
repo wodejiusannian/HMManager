@@ -28,6 +28,7 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseFragment;
+import manager.love.i.hmmanager.common.widgets.dialog.BottomListDialog;
 import manager.love.i.hmmanager.ui.activity.register.WelcomeHMActivity;
 import manager.love.i.hmmanager.ui.custom.dialog.DialogSelectCity;
 import manager.love.i.hmmanager.ui.fragment.welcome.model.CityModel;
@@ -71,7 +72,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String nameOfBank = BankUtil.getNameOfBank(s.toString());
-            if (ActivityUtils.isEmpty(nameOfBank)){
+            if (ActivityUtils.isEmpty(nameOfBank)) {
                 ets[1].setText(nameOfBank);
             }
         }
@@ -175,12 +176,12 @@ public class WelPerfectInfoFragment extends BaseFragment {
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.btn_wel_perfect_info_next:
-                String bankId = ets[0].getText().toString();
-                String bankName = ets[1].getText().toString();
-                String detailsAddress = ets[2].getText().toString();
-                String province = cities[0].getText().toString();
-                String city = cities[1].getText().toString();
-                String county = cities[2].getText().toString();
+                final String bankId = ets[0].getText().toString();
+                final String bankName = ets[1].getText().toString();
+                final String detailsAddress = ets[2].getText().toString();
+                final String province = cities[0].getText().toString();
+                final String city = cities[1].getText().toString();
+                final String county = cities[2].getText().toString();
                 if (!ActivityUtils.isEmpty(bankId)) {
                     Toast.makeText(activity, "银行卡号不正确", Toast.LENGTH_SHORT).show();
                     return;
@@ -189,10 +190,18 @@ public class WelPerfectInfoFragment extends BaseFragment {
                         || !ActivityUtils.isEmpty(province) || !ActivityUtils.isEmpty(city) || !ActivityUtils.isEmpty(county)) {
                     Toast.makeText(activity, "请检查数据是否填写完整", Toast.LENGTH_SHORT).show();
                 } else {
-                    String[] split = card_pic.split("/");
-                    card_pic = split[split.length - 1];
-                    activity.perfectInfo(bankId, bankName, city, province + " " + city + " " + county + " " + detailsAddress, card_pic, detailsAddress);
-                    activity.flip(2);
+                    String[] edus = {"见习工作室", "认证工作室"};
+                    BottomListDialog bottomListDialog = new BottomListDialog(getContext(), edus);
+                    bottomListDialog.setOnItemClickListener(new BottomListDialog.OnResultEdu() {
+                        @Override
+                        public void onResultEdu(String edu) {
+                            String[] split = card_pic.split("/");
+                            card_pic = split[split.length - 1];
+                            activity.perfectInfo(bankId, bankName, city, province + " " + city + " " + county + " " + detailsAddress, card_pic, detailsAddress,edu);
+                            activity.flip(2);
+                        }
+                    });
+                    bottomListDialog.show();
                 }
                 break;
             case R.id.rl_welcome_main_perfect_province:

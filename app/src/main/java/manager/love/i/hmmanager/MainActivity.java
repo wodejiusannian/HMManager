@@ -25,7 +25,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,10 +52,12 @@ import manager.love.i.hmmanager.bean.UserInfo;
 import manager.love.i.hmmanager.common.widgets.dialog.AcceptDialog;
 import manager.love.i.hmmanager.common.widgets.dialog.BottomDialog;
 import manager.love.i.hmmanager.common.widgets.dialog.LoginDialog;
+import manager.love.i.hmmanager.common.widgets.dialog.NormalDialog;
 import manager.love.i.hmmanager.common.widgets.dialog.RefuseDialog;
 import manager.love.i.hmmanager.common.widgets.recycle.BaseRecycleAdapter;
 import manager.love.i.hmmanager.common.widgets.recycle.BaseViewHolder;
 import manager.love.i.hmmanager.inter.Network;
+import manager.love.i.hmmanager.inter.NetworkCopy;
 import manager.love.i.hmmanager.sql.SQLIMDao;
 import manager.love.i.hmmanager.ui.activity.DetailsActivity;
 import manager.love.i.hmmanager.ui.activity.Drawer365Activity;
@@ -63,12 +70,14 @@ import manager.love.i.hmmanager.ui.activity.DrawerWalletManagerActivity;
 import manager.love.i.hmmanager.ui.activity.MsgActivity;
 import manager.love.i.hmmanager.ui.activity.ShopActivity;
 import manager.love.i.hmmanager.ui.activity.register.CheckInfoAfterActivity;
+import manager.love.i.hmmanager.ui.activity.register.RecoPersonActivity;
 import manager.love.i.hmmanager.utils.ActivityUtils;
 import manager.love.i.hmmanager.utils.AsyncHttpUtils;
 import manager.love.i.hmmanager.utils.HttpUtils;
 import manager.love.i.hmmanager.utils.RvDecorationUtils;
 import manager.love.i.hmmanager.utils.SPUtils;
 import manager.love.i.hmmanager.utils.ToastUtils;
+import manager.love.i.hmmanager.utils.TokenUtils;
 import manager.love.i.hmmanager.utils.glideutils.GlideCircleTransform;
 import manager.love.i.hmmanager.utils.glideutils.GlideRoundTransform;
 import manager.love.i.hmmanager.utils.overlayutil.HttpCallBack;
@@ -143,6 +152,7 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
     @Override
     protected void setListener() {
         initUser();
+        showIsHaveRecommendPeople();
     }
 
     @Override
@@ -175,7 +185,7 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
     protected void setData() {
         navigationView.setItemIconTintList(null);
         initNavigationView();
-        refresh.beginRefreshing();
+        //refresh.beginRefreshing();
     }
 
     /*
@@ -206,13 +216,20 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
         TextView customerName = holder.getView(R.id.tv_item_rv_customer_name);
         TextView customerNumber = holder.getView(R.id.tv_item_rv_customer_number);
         TextView customerTime = holder.getView(R.id.tv_item_rv_customer_time);
+        TextView customerTip = holder.getView(R.id.big_size_text_tip);
         TextView customerAddress = holder.getView(R.id.tv_item_rv_customer_address);
         ImageView customerPhoto = holder.getView(R.id.tv_item_rv_customer_photo);
         TextView customerPlace = holder.getView(R.id.tv_item_rv_customer_place_time);
         customerName.setText(bodyBean.getJd_name());
         customerAddress.setText(bodyBean.getJd_address());
         customerTime.setText(bodyBean.getJd_time());
-        customerNumber.setText(bodyBean.getClothes_num());
+        if ("1".equals(bodyBean.getOrderType())) {
+            customerTip.setText("除螨：");
+            customerNumber.setText("标准" + bodyBean.getClothes_num() + "袋");
+        } else {
+            customerTip.setText("服饰量：");
+            customerNumber.setText(bodyBean.getClothes_num());
+        }
         customerPlace.setText(bodyBean.getXd_time());
 
         Glide.with(MainActivity.this)
@@ -266,10 +283,18 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
     * */
     private void refuseInter(int pos, String reason) {
         InDoorOrder.BodyBean body = mData.get(pos);
-        Network.userRefuseOrderService().refuseOrder(stuId, body.getOrder_id(), reason)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(refuseOrder);
+        if ("1".equals(body.getOrderType())){
+            NetworkCopy.userRefuseOrderService().refuseOrder(TokenUtils.token,"1", body.getOrder_id(), reason)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(refuseOrder);
+        }else{
+            Network.userRefuseOrderService().refuseOrder(stuId, body.getOrder_id(), reason)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(refuseOrder);
+        }
+
     }
 
     /*
@@ -292,6 +317,59 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
             }
         });
         accept.show();
+    }
+
+
+    private void showIsHaveRecommendPeople() {
+        final String stuId = SPUtils.getStuId(this);
+        if (ActivityUtils.isEmpty(stuId)) {
+            RequestParams pa = new RequestParams("http://hmyc365.net/admiral/app/hmgls/data/manager/getReferee.htm");
+            pa.addBodyParameter("userId", stuId);
+            x.http().post(pa, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    try {
+                        JSONObject obj = new JSONObject(result);
+                        JSONArray body = obj.getJSONArray("body");
+                        JSONObject jsonObject = body.getJSONObject(0);
+                        String refereeId = jsonObject.getString("refereeId");
+                        if (!ActivityUtils.isEmpty(refereeId)) {
+                            final NormalDialog dialog = new NormalDialog(MainActivity.this);
+                            dialog.setTitle("工作室推荐");
+                            dialog.setMsg("亲，您还没有选取推荐您的工作室哦\n(仅有一次机会)");
+                            dialog.setCancel("我就不选择");
+                            dialog.setOnYesListener("去选择", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(MainActivity.this, RecoPersonActivity.class);
+                                    intent.putExtra("userId", stuId);
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        }
     }
 
 
@@ -484,6 +562,7 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
                             SPUtils.writeUserInfo(MainActivity.this, body.getString("studio_state"), body.getString("studio_sex"), body.getString("studio_name"), body.getString("studio_head_pic_url"), body.getString("studio_id"));
                             initUser();
                             initRongIM();
+                            showIsHaveRecommendPeople();
                             Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         } else {
                             //handler.sendEmptyMessage(4);
@@ -573,7 +652,31 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
             }
         }
     };
+    /*
+        * 工作室的订单列表处理
+        * */
+    Observer<InDoorOrder> inDoorOrder2 = new Observer<InDoorOrder>() {
+        @Override
+        public void onCompleted() {
 
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(InDoorOrder inDoorOrders) {
+            mData.addAll(inDoorOrders.getBody());
+            adapter.notifyDataSetChanged();
+            if (mData.size() > 0) {
+                noOrder.setVisibility(View.GONE);
+            } else {
+                noOrder.setVisibility(View.VISIBLE);
+            }
+        }
+    };
     /*
     * 工作室的订单列表处理
     * */
@@ -594,12 +697,7 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
             refresh.endRefreshing();
             refresh.endLoadingMore();
             mData.addAll(inDoorOrders.getBody());
-            adapter.notifyDataSetChanged();
-            if (mData.size() > 0) {
-                noOrder.setVisibility(View.GONE);
-            } else {
-                noOrder.setVisibility(View.VISIBLE);
-            }
+            initInDoorOrderData2();
         }
     };
 
@@ -608,11 +706,21 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
      * */
     private void accept(int pos) {
         InDoorOrder.BodyBean body = mData.get(pos);
-        Network.userAcceptOrderService().acceptOrder(stuId, body.getOrder_id(), "0", "11")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(acceptOrder);
+        String orderType = body.getOrderType();
+        //除螨服务接单
+        if ("1".equals(orderType)) {
+            NetworkCopy.userAcceptOrderService().acceptOrder(TokenUtils.token, body.getOrder_id(), "1")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(acceptOrder);
+        } else if ("3".equals(orderType)) {
+            Network.userAcceptOrderService().acceptOrder(stuId, body.getOrder_id(), "0", "11")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(acceptOrder);
+        }
     }
+
 
     /*
      * 工作室的欣然接受订单处理
@@ -669,12 +777,22 @@ public class MainActivity extends BaseActivity implements BGARefreshLayout.BGARe
     * */
     private void initInDoorOrderData() {
         stuId = getStuId(this);
-        Network.userInDoorOrder().getInDoorOrder(stuId, "10")
+        NetworkCopy.userInDoorOrder().getInDoorOrder(TokenUtils.token, stuId, "10", "3")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(inDoorOrder);
     }
 
+    /*
+       *  获取当前工作室的订单
+       * */
+    private void initInDoorOrderData2() {
+        stuId = getStuId(this);
+        NetworkCopy.userInDoorOrder().getInDoorOrder(TokenUtils.token, stuId, "0", "1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(inDoorOrder2);
+    }
 
     private void initUser() {
         stuId = getStuId(this);

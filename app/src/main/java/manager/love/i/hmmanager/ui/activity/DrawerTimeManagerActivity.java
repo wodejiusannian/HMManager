@@ -64,7 +64,7 @@ public class DrawerTimeManagerActivity extends BaseActivity implements View.OnCl
 
     private void initTime() {
         String stuId = SPUtils.getStuId(this);
-        Toast.makeText(this, "stuId" + stuId, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "stuId" + stuId, Toast.LENGTH_SHORT).show();
         Network.studioTimeManagerService().timeManager(stuId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -109,10 +109,12 @@ public class WelcomeHMActivity extends BaseActivity {
         update = intent.getStringExtra("update");
         String studio_id = intent.getStringExtra("studio_id");
         String city_fzr = intent.getStringExtra("city_fzr");
-        String city = intent.getStringExtra("city");
+        String cityStudy = intent.getStringExtra("cityStudy");
+        String studyTime = intent.getStringExtra("studyTime");
         map.put("city_fzr", city_fzr);
-        map.put("city", city);
         map.put("studio_id", studio_id);
+        map.put("cityStudy", cityStudy);
+        map.put("studyTime", studyTime);
     }
 
 
@@ -231,6 +233,7 @@ public class WelcomeHMActivity extends BaseActivity {
                         File file = new File(s);
                         try {
                             String imageUrl = HttpUtils.uploadFile(file, "http://hmyc365.net/HM/bg/system/file/picture/picUpload.do");
+                            //url = imageUrl;
                             imageUrl = imageUrl.substring(2, imageUrl.length() - 2);
                             Message msg = Message.obtain();
                             Bundle bundle = new Bundle();
@@ -239,6 +242,7 @@ public class WelcomeHMActivity extends BaseActivity {
                             handler.sendMessage(msg);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            //handler.sendEmptyMessage(1);
                         }
                     }
                 }).start();
@@ -253,6 +257,7 @@ public class WelcomeHMActivity extends BaseActivity {
         }
     }
 
+    //private String url;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -260,6 +265,7 @@ public class WelcomeHMActivity extends BaseActivity {
             Bundle data = msg.getData();
             stringInter.onResult(data.getString("url"));
             dismissDialog();
+            //Toast.makeText(WelcomeHMActivity.this, "---" + url, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -288,19 +294,23 @@ public class WelcomeHMActivity extends BaseActivity {
     }
 
 
-    public void registerInfo(String name, String id, String phone, String id_pic, String referee_name, String referee_id) {
+    public void registerInfo(String name, String id, String phone, String id_pic, String referee_name, String referee_id, String edus, String serviceCity) {
         mName = name;
         mPhone = phone;
         mID = id;
         map.put("name", name);
         map.put("phone", phone);
         map.put("id_number", id);
+        map.put("city", serviceCity);
         map.put("referee_name", referee_name);
         map.put("id_pic", id_pic);
         map.put("referee_id", referee_id);
+        map.put("education", edus);
     }
 
-    public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic, String xiangxi) {
+    private String gradle;
+
+    public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic, String xiangxi, String edu) {
         mAddress = detailsAddress;
         mCardBank = bankName;
         mCardNo = bankId;
@@ -313,13 +323,20 @@ public class WelcomeHMActivity extends BaseActivity {
         map.put("address_shi", split[1]);
         map.put("address_xian", split[2]);
         map.put("address_xiangxi", xiangxi);
+        if (edu.contains("见习")) {
+            map.put("grade", "1");
+            gradle = "1";
+        } else {
+            map.put("grade", "2");
+            gradle = "2";
+        }
         if (infoInter != null)
-            infoInter.onResult(mName, mPhone, mID, mAddress,mCardNo,mCardBank);
+            infoInter.onResult(mName, mPhone, mID, mAddress, mCardNo, mCardBank, gradle);
     }
 
     public void again() {
         if (infoInter != null)
-            infoInter.onResult(mName, mPhone, mID, mAddress,mCardNo,mCardBank);
+            infoInter.onResult(mName, mPhone, mID, mAddress, mCardNo, mCardBank, gradle);
     }
 
     public void welSingAgreement() {
