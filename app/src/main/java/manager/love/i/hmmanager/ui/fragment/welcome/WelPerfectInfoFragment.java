@@ -28,7 +28,6 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseFragment;
-import manager.love.i.hmmanager.common.widgets.dialog.BottomListDialog;
 import manager.love.i.hmmanager.ui.activity.register.WelcomeHMActivity;
 import manager.love.i.hmmanager.ui.custom.dialog.DialogSelectCity;
 import manager.love.i.hmmanager.ui.fragment.welcome.model.CityModel;
@@ -137,7 +136,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
         } finally {
 
         }
-        ets[0].addTextChangedListener(mTextWatcher);
+        //ets[0].addTextChangedListener(mTextWatcher);
     }
 
     @Override
@@ -190,18 +189,19 @@ public class WelPerfectInfoFragment extends BaseFragment {
                         || !ActivityUtils.isEmpty(province) || !ActivityUtils.isEmpty(city) || !ActivityUtils.isEmpty(county)) {
                     Toast.makeText(activity, "请检查数据是否填写完整", Toast.LENGTH_SHORT).show();
                 } else {
-                    String[] edus = {"见习工作室", "认证工作室"};
+                    String[] split = card_pic.split("/");
+                    card_pic = split[split.length - 1];
+                    activity.perfectInfo(bankId, bankName, city, province + " " + city + " " + county + " " + detailsAddress, card_pic, detailsAddress);
+                    activity.flip(2);
+                   /* String[] edus = {"见习工作室", "认证工作室"};
                     BottomListDialog bottomListDialog = new BottomListDialog(getContext(), edus);
                     bottomListDialog.setOnItemClickListener(new BottomListDialog.OnResultEdu() {
                         @Override
                         public void onResultEdu(String edu) {
-                            String[] split = card_pic.split("/");
-                            card_pic = split[split.length - 1];
-                            activity.perfectInfo(bankId, bankName, city, province + " " + city + " " + county + " " + detailsAddress, card_pic, detailsAddress,edu);
-                            activity.flip(2);
+
                         }
                     });
-                    bottomListDialog.show();
+                    bottomListDialog.show();*/
                 }
                 break;
             case R.id.rl_welcome_main_perfect_province:
@@ -236,8 +236,7 @@ public class WelPerfectInfoFragment extends BaseFragment {
                 activity.notifyDialog("请输入该银行卡号开户行，例如：招商银行亦庄支行；");
                 break;
             case R.id.iv_welcome_edit_bank_id_tip:
-                activity.notifyDialog("1、请输入X位银行卡号；\n" +
-                        "2、此银行卡号将作为结算作用，请认真填写；");
+                activity.notifyDialog("此银行卡号将作为结算作用，请认真填写；");
                 break;
             case R.id.tv_welcome_tip_bank:
                 activity.notifyPic(R.mipmap.hm_welcome_bank_tip);

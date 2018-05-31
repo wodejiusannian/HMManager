@@ -310,7 +310,7 @@ public class WelcomeHMActivity extends BaseActivity {
 
     private String gradle;
 
-    public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic, String xiangxi, String edu) {
+    public void perfectInfo(String bankId, String bankName, String city, String detailsAddress, String card_pic, String xiangxi) {
         mAddress = detailsAddress;
         mCardBank = bankName;
         mCardNo = bankId;
@@ -323,13 +323,14 @@ public class WelcomeHMActivity extends BaseActivity {
         map.put("address_shi", split[1]);
         map.put("address_xian", split[2]);
         map.put("address_xiangxi", xiangxi);
-        if (edu.contains("见习")) {
+        map.put("grade", "1");
+        /*if (edu.contains("见习")) {
             map.put("grade", "1");
             gradle = "1";
         } else {
             map.put("grade", "2");
             gradle = "2";
-        }
+        }*/
         if (infoInter != null)
             infoInter.onResult(mName, mPhone, mID, mAddress, mCardNo, mCardBank, gradle);
     }

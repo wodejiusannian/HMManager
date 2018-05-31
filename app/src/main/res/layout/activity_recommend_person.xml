@@ -24,11 +24,11 @@
             android:id="@+id/tv_ly_commendpeople_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:padding="10dp"
             android:text="地址"
-            android:textColor="#ac0000" />
+            android:textColor="#ac0000"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -28,7 +28,6 @@ import manager.love.i.hmmanager.inter.api.UserAcceptOrderService;
 import manager.love.i.hmmanager.inter.api.UserEvaluateService;
 import manager.love.i.hmmanager.inter.api.UserInDoorOrderService;
 import manager.love.i.hmmanager.inter.api.UserInfoService;
-import manager.love.i.hmmanager.inter.api.UserRefuseOrderService;
 import manager.love.i.hmmanager.inter.api.UserStateService;
 import manager.love.i.hmmanager.sql.SQLIMDao;
 import okhttp3.OkHttpClient;
@@ -48,7 +47,6 @@ public class Network {
     private static final String BASE_URL = "http://hmyc365.net:8084/HM/";
     private static UserInfoService userInfoService;
     private static UserStateService userStateService;
-    private static UserRefuseOrderService userRefuseOrderService;
     private static UserAcceptOrderService userAcceptOrderService;
     private static UserEvaluateService userEvaluateService;
     private static StudioInfoService studioInfoService;
@@ -169,23 +167,6 @@ public class Network {
         return userAcceptOrderService;
     }
 
-    /*
-    * MainActivity 残忍拒绝
-    * */
-    public static UserRefuseOrderService userRefuseOrderService() {
-
-        if (userRefuseOrderService == null) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .client(okHttpClient)
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(gsonConverterFactory)
-                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
-                    .build();
-            userRefuseOrderService = retrofit.create(UserRefuseOrderService.class);
-        }
-
-        return userRefuseOrderService;
-    }
 
     /*
    * 获取工作室评价

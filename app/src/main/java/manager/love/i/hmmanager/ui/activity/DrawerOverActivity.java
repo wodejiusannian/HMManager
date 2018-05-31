@@ -54,12 +54,12 @@ public class DrawerOverActivity extends BaseActivity {
             DrawerOverFragment fragment = new DrawerOverFragment();
             Bundle bundle = new Bundle();
             if (i == 0) {
-                bundle.putString("state_pj", "11,100,110,1001,12,1101,101,33");
-                bundle.putString("orderType", "3");
+                bundle.putString("state_pj", "1,2,3,4,5,6,7");
+                bundle.putString("orderType", "3,4");
                 fragment.setArguments(bundle);
             } else {
-                bundle.putString("state_pj", "1,2,3,4,5,6");
-                bundle.putString("orderType", "1");
+                bundle.putString("state_pj", "1,2,3,4,5,6,7");
+                bundle.putString("orderType", "1,2");
                 fragment.setArguments(bundle);
             }
             fragments.add(fragment);

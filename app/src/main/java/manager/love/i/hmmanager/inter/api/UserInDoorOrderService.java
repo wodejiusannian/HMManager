@@ -23,7 +23,7 @@ import rx.Observable;
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
 public interface UserInDoorOrderService {
-    @POST("admiral/app/hmgls/service/order/listOrder.htm")
+    @POST("admiral/app/hmgls/order/info/listOrder.htm?token=")
     Observable<InDoorOrder> getInDoorOrder(@Query("token") String token, @Query("sellerUserId") String sellerUserId, @Query("deleteStatusPj") String deleteStatus,@Query("orderType") String orderType);
 
 }

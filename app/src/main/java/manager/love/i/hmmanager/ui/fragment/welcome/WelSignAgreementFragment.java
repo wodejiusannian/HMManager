@@ -95,13 +95,13 @@ public class WelSignAgreementFragment extends BaseFragment {
         activity.getInfo(new InfoInter() {
             @Override
             public void onResult(String name, String phone, String id, String address, String bankId, String bankName, String gradle) {
-                if ("1".equals(gradle)) {
+               /* if ("1".equals(gradle)) {
                     url = "http://hmyc365.net/hmyc/file/hm-system/html/contract-trainee.html" + "?userName=" + name + "&idNum=" + id +
                             "&address=" + address + "&contactInformation=" + phone + "&openBank=" + bankName + "&bankCardNum" + bankId;
-                } else {
-                    url = "http://hmyc365.net/hmyc/file/hm-system/html/contract-authentication.html" + "?userName=" + name + "&idNum=" + id +
-                            "&address=" + address + "&contactInformation=" + phone + "&openBank=" + bankName + "&bankCardNum" + bankId;
-                }
+                } else {*/
+                /* }*/
+                url = "http://hmyc365.net/hmyc/file/hm-system/html/contract.html" + "?userName=" + name + "&idNum=" + id +
+                        "&address=" + address + "&contactInformation=" + phone + "&openBank=" + bankName + "&bankCardNum" + bankId;
                 loadingUrl(url);
             }
         });
@@ -143,11 +143,16 @@ public class WelSignAgreementFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.btn_wel_sign_agree_ok, R.id.tip})
+    @OnClick({R.id.btn_wel_sign_agree_ok, R.id.tip,R.id.big})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.btn_wel_sign_agree_ok:
                 activity.welSingAgreement();
+                break;
+            case R.id.big:
+                Intent in = new Intent(getContext(), LyDetailsWebActivity.class);
+                in.putExtra("url", url);
+                startActivity(in);
                 break;
             case R.id.tip:
                 new AsyncHttpUtils(new HttpCallBack() {

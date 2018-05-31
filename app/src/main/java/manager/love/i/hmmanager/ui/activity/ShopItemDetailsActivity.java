@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseActivity;
 import manager.love.i.hmmanager.common.widgets.dialog.RecommendDialog;
+import manager.love.i.hmmanager.utils.ali.ShareUtils;
 
 import static android.webkit.WebSettings.LOAD_NO_CACHE;
 
@@ -37,11 +38,16 @@ public class ShopItemDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         clothes_id = intent.getStringExtra("id");
         clothes_cz = intent.getStringExtra("clothes_cz");
+        pic = intent.getStringExtra("pic");
+        name = intent.getStringExtra("name");
         dialog = new RecommendDialog(this, clothes_id, clothes_cz);
         String url = "http://hmyc365.net:8084/file/html/clothes/index.html?clothes_id=" + clothes_id;
         loadindUrl(url);
     }
 
+    private String pic;
+
+    private String name;
 
     @Override
     public void setData() {
@@ -94,11 +100,14 @@ public class ShopItemDetailsActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.shop_item_btn_recommend})
+    @OnClick({R.id.shop_item_btn_recommend, R.id.iv_web_share})
     public void onEvent(View v) {
         switch (v.getId()) {
             case R.id.shop_item_btn_recommend:
                 dialog.show();
+                break;
+            case R.id.iv_web_share:
+                ShareUtils.showShare(this, String.format("http://hmyc365.net/hmyc/file/app/app-clothes-xq/index.html?token=82D5FBD40259C743ADDEF14D0E22F347&clothesId=%s", clothes_id), name, pic);
                 break;
             default:
                 break;

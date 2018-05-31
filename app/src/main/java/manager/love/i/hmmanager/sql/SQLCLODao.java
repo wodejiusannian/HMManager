@@ -44,7 +44,7 @@ public class SQLCLODao {
     public List<ShopTag.BodyBean> selectCloTAG(String type) {
         List<ShopTag.BodyBean> mData = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
-        String sqlStr = "checkbox_style_select * from clo  where type = " + type;
+        String sqlStr = "select * from clo  where type = " + type;
         Cursor cursor = null;
         try {
             cursor = db.rawQuery(sqlStr, null);
@@ -77,7 +77,7 @@ public class SQLCLODao {
     public List<ShopTag.BodyBean> selectSort() {
         List<ShopTag.BodyBean> mData = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
-        String sqlStr = "checkbox_style_select * from clo where type = '1' GROUP BY yiji_code";
+        String sqlStr = "select * from clo where type = '1' GROUP BY yiji_code";
         Cursor cursor = null;
         try {
             cursor = db.rawQuery(sqlStr, null);
@@ -110,7 +110,7 @@ public class SQLCLODao {
     public List<ShopTag.BodyBean> selectStyle(String yji_name) {
         List<ShopTag.BodyBean> mData = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
-        String sqlStr = "checkbox_style_select * from clo where yiji_name = " + "'" + yji_name + "'";
+        String sqlStr = "select * from clo where yiji_name = " + "'" + yji_name + "'";
         Cursor cursor = null;
         try {
             cursor = db.rawQuery(sqlStr, null);

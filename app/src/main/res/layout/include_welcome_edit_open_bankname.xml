@@ -31,7 +31,7 @@
                 android:id="@+id/et_wel_bank_name"
                 style="@style/editWelcomeStyle"
                 android:layout_toLeftOf="@+id/iv_welcome_edit_name_tip"
-                android:hint="点击填写开户行"
+                android:hint="点击填写开户行+支行"
                 android:maxLength="18" />
 
             <ImageView

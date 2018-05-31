@@ -2,9 +2,10 @@
 
 package manager.love.i.hmmanager.inter;
 
+import manager.love.i.hmmanager.inter.api.ManagerLevelService;
 import manager.love.i.hmmanager.inter.api.UserAcceptOrderKillAcaursService;
 import manager.love.i.hmmanager.inter.api.UserInDoorOrderService;
-import manager.love.i.hmmanager.inter.api.UserRefuseOrderKillAcarusService;
+import manager.love.i.hmmanager.inter.api.UserRefuseOrderService;
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
@@ -42,12 +43,12 @@ public class NetworkCopy {
         return userInDoorService;
     }
 
-    private static UserRefuseOrderKillAcarusService userRefuseOrderService;
+    private static UserRefuseOrderService userRefuseOrderService;
 
     /*
     * MainActivity 除螨残忍拒绝
     * */
-    public static UserRefuseOrderKillAcarusService userRefuseOrderService() {
+    public static UserRefuseOrderService userRefuseOrderService() {
 
         if (userRefuseOrderService == null) {
             Retrofit retrofit = new Retrofit.Builder()
@@ -56,7 +57,7 @@ public class NetworkCopy {
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();
-            userRefuseOrderService = retrofit.create(UserRefuseOrderKillAcarusService.class);
+            userRefuseOrderService = retrofit.create(UserRefuseOrderService.class);
         }
 
         return userRefuseOrderService;
@@ -64,6 +65,7 @@ public class NetworkCopy {
 
 
     private static UserAcceptOrderKillAcaursService userAcceptOrderKillAcaursService;
+
 
     /*
     * MainActivity 除螨残忍拒绝
@@ -81,5 +83,27 @@ public class NetworkCopy {
         }
 
         return userAcceptOrderKillAcaursService;
+    }
+
+
+    private static ManagerLevelService managerLevelService;
+
+
+    /*
+    * 检测管理师等级
+    * */
+    public static ManagerLevelService managerLevelService() {
+
+        if (managerLevelService == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            managerLevelService = retrofit.create(ManagerLevelService.class);
+        }
+
+        return managerLevelService;
     }
 }

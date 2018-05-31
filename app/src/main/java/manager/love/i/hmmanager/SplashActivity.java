@@ -2,6 +2,7 @@ package manager.love.i.hmmanager;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -102,13 +103,15 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            Log.e(TAG, "onNext: ---" + e.getMessage());
         }
 
         @Override
         public void onNext(ShopTag shopList) {
             List<ShopTag.BodyBean> data = shopList.getBody();
+            Log.e(TAG, "onNext: ---" + data.size());
             for (ShopTag.BodyBean bean : data) {
+                Log.e(TAG, "onNext: ---" + bean.getErji_name());
                 dao.addCloTAG(bean);
             }
         }

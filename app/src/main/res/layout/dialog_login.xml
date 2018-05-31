@@ -45,14 +45,13 @@
         android:textSize="12sp" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_login_dialog_login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_margin="10dp"
             android:background="@drawable/shape_radios_red_4dp"
             android:gravity="center"
@@ -61,13 +60,12 @@
 
         <TextView
             android:id="@+id/tv_login_dialog_welcome"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_margin="10dp"
             android:background="@drawable/shape_radios_red_4dp"
             android:gravity="center"
-            android:text="注册"
+            android:text="加入慧美"
             android:textColor="#fff" />
     </LinearLayout>
 

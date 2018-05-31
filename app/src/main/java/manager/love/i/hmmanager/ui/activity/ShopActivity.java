@@ -257,6 +257,8 @@ public class ShopActivity extends BaseActivity implements BGARefreshLayout.BGARe
                         Intent intent = new Intent(ShopActivity.this, ShopItemDetailsActivity.class);
                         intent.putExtra("clothes_cz", bean.getMianliao_id());
                         intent.putExtra("id", bean.getClothes_id());
+                        intent.putExtra("name", bean.getClothes_name());
+                        intent.putExtra("pic", bean.getClothes_pic());
                         startActivity(intent);
                     }
                 });

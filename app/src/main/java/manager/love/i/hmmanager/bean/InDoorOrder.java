@@ -52,21 +52,21 @@ public class InDoorOrder {
     }
 
     public static class BodyBean implements Serializable {
-        /**
-         * xd_time : 2017-06-09 16:08:40
-         * app_user_head_pic : http://wx.qlogo.cn/mmopen/pjJMDc8yQuceTatt845IXNU6dD2xibjj8rQnzJ420Gibsohlqhxhvl9e4BQOIF1olukEGVe7rjjaR1ydqMibzGP7UNZIEOHoxnQ/0
-         * evaluate : 0
-         * jd_address : 安徽省,安庆市,枞阳县烤鸡腿
-         * jd_time : 2017-06-11 上午
-         * order_id : 9281295720149691
-         * jd_city : 北京市
-         * jd_name : 小五
-         * clothes_money : 298
-         * othclo_money : 0
-         * jd_phone : 554584
-         * box_money : 0
-         * clothes_num : 100
-         */
+     /*   *//**//**
+                *xd_time :2017-06-09 16:08:40
+                *app_user_head_pic :http://wx.qlogo.cn/mmopen/pjJMDc8yQuceTatt845IXNU6dD2xibjj8rQnzJ420Gibsohlqhxhvl9e4BQOIF1olukEGVe7rjjaR1ydqMibzGP7UNZIEOHoxnQ/0
+                *evaluate :0
+                *jd_address :安徽省,安庆市,枞阳县烤鸡腿
+         *jd_time :2017-06-11上午
+         *order_id :9281295720149691
+                *jd_city :北京市
+         *jd_name :小五
+         *clothes_money :298
+                *othclo_money :0
+                *jd_phone :554584
+                *box_money :0
+                *clothes_num :100
+                *//**//**/
 
         private String xd_time;
         private String app_user_head_pic;

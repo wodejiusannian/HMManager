@@ -165,6 +165,7 @@
         <activity android:name=".ui.activity.register.CheckInfoActivity" />
         <activity android:name=".ui.activity.register.CheckInfoAfterActivity" />
         <activity android:name=".ui.activity.register.LyDetailsWebActivity"></activity>
+        <activity android:name=".ui.activity.ClosingPriceActivity"></activity>
         <!-- 主activity -->
         <activity
             android:name=".MainActivity"
@@ -344,6 +345,28 @@
         </receiver>
 
         <activity android:name=".ui.activity.register.ServiceCityActivity"></activity>
+
+
+        <meta-data
+            android:name="IFLYTEK_CHANNEL"
+            android:value=""></meta-data>
+        <meta-data
+            android:name="IFLYTEK_APPKEY"
+            android:value="'5b0d1cc1'"></meta-data>
+
+        <activity
+            android:name="com.iflytek.autoupdate.IFlytekUpdateDialog"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
+        <!-- 下载基础服务 -->
+        <service
+            android:name="com.iflytek.autoupdate.IFlytekDownloadService"
+            android:enabled="true"
+            android:process=":IFlytekDownloadService" />
     </application>
 
 </manifest>

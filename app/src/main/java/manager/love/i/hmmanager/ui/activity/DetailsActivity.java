@@ -1,19 +1,26 @@
 package manager.love.i.hmmanager.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -22,12 +29,14 @@ import butterknife.OnClick;
 import manager.love.i.hmmanager.R;
 import manager.love.i.hmmanager.base.BaseActivity;
 import manager.love.i.hmmanager.bean.Evaluate;
-import manager.love.i.hmmanager.bean.InDoorOrder;
+import manager.love.i.hmmanager.bean.InDoorOrder2;
 import manager.love.i.hmmanager.bean.UserInfo;
 import manager.love.i.hmmanager.common.widgets.dialog.RefuseDialog;
 import manager.love.i.hmmanager.inter.Network;
 import manager.love.i.hmmanager.inter.NetworkCopy;
 import manager.love.i.hmmanager.utils.ActivityUtils;
+import manager.love.i.hmmanager.utils.NetConfig;
+import manager.love.i.hmmanager.utils.NetUtils;
 import manager.love.i.hmmanager.utils.PermissionsUtils;
 import manager.love.i.hmmanager.utils.SPUtils;
 import manager.love.i.hmmanager.utils.ToastUtils;
@@ -60,7 +69,10 @@ public class DetailsActivity extends BaseActivity {
     @BindView(R.id.rb_details_evluate_star)
     RatingBar ratingBar;
 
-    private InDoorOrder.BodyBean customerInfo;
+    private InDoorOrder2.BodyBean bodyBean;
+
+    @BindView(R.id.ll_details_confirmed)
+    LinearLayout confirmed;
 
     private String stuId;
 
@@ -70,11 +82,22 @@ public class DetailsActivity extends BaseActivity {
 
     }
 
+
+    @BindView(R.id.ll_show)
+    LinearLayout show;
+
     @Override
     protected void setListener() {
-        String eva = customerInfo.getEvaluate();
-        String state = customerInfo.getState();
-        if (TextUtils.equals("1", state) || TextUtils.equals("11", state)) {
+        String eva = customerInfo.getEvaluateState();
+        String state = customerInfo.getDeleteStatus();
+        if (TextUtils.equals("1", state)) {
+            buttons[0].setVisibility(View.VISIBLE);
+            buttons[1].setVisibility(View.GONE);
+            buttons[2].setVisibility(View.VISIBLE);
+            buttons[0].setText("确认完成");
+            buttons[2].setText("补差价");
+            evaluate.setVisibility(View.GONE);
+        } else if (TextUtils.equals("11", state)) {
             buttons[0].setVisibility(View.VISIBLE);
             buttons[1].setVisibility(View.GONE);
             buttons[2].setVisibility(View.VISIBLE);
@@ -108,45 +131,70 @@ public class DetailsActivity extends BaseActivity {
             buttons[2].setVisibility(View.VISIBLE);
             evaluate.setVisibility(View.GONE);
         } else if (TextUtils.equals("2", state) || TextUtils.equals("12", state) || TextUtils.equals("33", state)) {
-            if (TextUtils.equals("1", eva)) {
+            if (TextUtils.equals("0", eva)) {
                 evaluate.setVisibility(View.VISIBLE);
                 buttons[1].setVisibility(View.VISIBLE);
                 buttons[1].setText("已评价");
                 getEvaluate();
-            } else if (TextUtils.equals("0", eva)) {
+            } else {
                 buttons[1].setVisibility(View.VISIBLE);
                 buttons[1].setText("未评价");
                 evaluate.setVisibility(View.GONE);
-            } else if ("-1".equals(eva)) {
-                buttons[1].setVisibility(View.VISIBLE);
-                buttons[1].setText("已投诉");
+            }
+        } else if ("7".equals(state)) {
+            buttons[0].setVisibility(View.GONE);
+            buttons[1].setVisibility(View.VISIBLE);
+            buttons[2].setVisibility(View.GONE);
+            buttons[1].setText("已结算");
+        }
+
+        initClosePrice();
+    }
+
+    private NetUtils net = NetUtils.getInstance();
+
+    private Map<String, String> maps = new HashMap<>();
+
+    private void initClosePrice() {
+        List<InDoorOrder2.BodyBean.OrderInfoBean> list = bodyBean.getOrderInfo();
+        for (InDoorOrder2.BodyBean.OrderInfoBean bean : list) {
+            String type = bean.getOrderType();
+            if ("2".equals(type) || "4".equals(type)) {
+                TextView textView = new TextView(this);
+                textView.setTextColor(Color.parseColor("#ac0000"));
+                textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+                textView.setText("已补差价：" + bean.getMoneyPay());
+                show.addView(textView);
             }
         }
     }
 
     @Override
     protected void initData() {
-        customerInfo = (InDoorOrder.BodyBean) getIntent().getSerializableExtra("customerInfo");
+        bodyBean = getIntent().getParcelableExtra("customerInfo");
         stuId = SPUtils.getStuId(this);
-
+        customerInfo = bodyBean.getOrderInfo().get(0);
     }
+
+    private InDoorOrder2.BodyBean.OrderInfoBean customerInfo;
 
     @Override
     protected void setData() {
-        customView[0].setText(customerInfo.getJd_name());
+        customView[0].setText(customerInfo.getConsigneeName());
         String orderType = customerInfo.getOrderType();
         if ("1".equals(orderType)) {
             tip.setText("除螨：");
-            customView[1].setText("标准" + customerInfo.getClothes_num() + "件");
+            customView[1].setText("标准" + customerInfo.getOrderNumber() + "件");
         } else {
-            customView[1].setText(customerInfo.getClothes_num());
+            customView[1].setText(customerInfo.getClothesNumber());
         }
-        customView[2].setText(customerInfo.getJd_phone());
-        customView[3].setText(customerInfo.getJd_time());
-        customView[4].setText(customerInfo.getJd_address());
-        customView[5].setText(customerInfo.getXd_time());
+        customView[2].setText(customerInfo.getConsigneePhone());
+        customView[3].setText(customerInfo.getConsigneeTime());
+        customView[4].setText(customerInfo.getConsigneeAddress());
+        customView[5].setText(customerInfo.getPayTime());
         Glide.with(this)
-                .load(customerInfo.getApp_user_head_pic())
+                .load(bodyBean.getBuyUserPic())
                 .error(R.mipmap.hm_main_drawer_photo_default)
                 .crossFade(1000)
                 .transform(new GlideCircleTransform(this))
@@ -158,7 +206,7 @@ public class DetailsActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.mp_details_tip:
                 Map map = new HashMap();
-                map.put("address", customerInfo.getJd_address());
+                map.put("address", customerInfo.getConsigneeAddress());
                 ActivityUtils.switchTo(this, MapActivity.class, map);
                 break;
             case R.id.iv_details_big_phone:
@@ -168,15 +216,44 @@ public class DetailsActivity extends BaseActivity {
                 goPhone(customView[2].getText().toString().trim().replace(" ", ""));
                 break;
             case R.id.btn_details_right:
-                String state = customerInfo.getState();
+                String state = customerInfo.getDeleteStatus();
                 if ("0".equals(state) || "10".equals(state)) {
                     accept();
+                } else if ("1".equals(state)) {
+                    Intent intent = new Intent(this, ClosingPriceActivity.class);
+                    intent.putExtra("bean", bodyBean);
+                    startActivity(intent);
                 }
                 break;
             case R.id.btn_details_left:
-                String state1 = customerInfo.getState();
+                String state1 = customerInfo.getDeleteStatus();
                 if ("0".equals(state1) || "10".equals(state1)) {
                     refuse();
+                } else if ("1".equals(state1)) {
+                    maps.put("buyUserId", bodyBean.getBuyUserId());
+                    maps.put("orderId", bodyBean.getOrderId());
+                    maps.put("orderType", customerInfo.getOrderType());
+                    maps.put("sellerUserId", customerInfo.getSellerUserId());
+                    net.post(NetConfig.ORDER_SURE, this, maps, new NetUtils.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                String ret = jsonObject.getString("ret");
+                                if ("0".equals(ret)) {
+                                    buttons[0].setVisibility(View.GONE);
+                                    buttons[1].setVisibility(View.VISIBLE);
+                                    buttons[2].setVisibility(View.GONE);
+                                    buttons[1].setText("已完成");
+                                    Toast.makeText(DetailsActivity.this, "已完成订单", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(DetailsActivity.this, "请退出重试", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
                 break;
             default:
@@ -208,7 +285,7 @@ public class DetailsActivity extends BaseActivity {
      * 用户评价
      * */
     private void getEvaluate() {
-        Network.userEvaluateService().userEvaluateService(stuId, customerInfo.getOrder_id())
+        Network.userEvaluateService().userEvaluateService(stuId, bodyBean.getOrderId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userInfoServer);
@@ -225,20 +302,17 @@ public class DetailsActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-            ToastUtils.Toa(DetailsActivity.this, "网络中断，请重试" + e.getMessage());
+            //ToastUtils.Toa(DetailsActivity.this, "网络中断，请重试" + e.getMessage());
         }
 
         @Override
         public void onNext(Evaluate evaluate) {
-            Evaluate.BodyBean bean = evaluate.getBody();
-            customView[6].setText(bean.getApp_user_name());
-            customView[7].setText(bean.getContent());
-            ratingBar.setNumStars(strToInt(bean.getStar()));
+            Evaluate.BodyBean ss = evaluate.getBody();
+            customView[6].setText(ss.getApp_user_name());
+            customView[7].setText(ss.getContent());
+            ratingBar.setNumStars(strToInt(ss.getStar()));
             Glide.with(DetailsActivity.this)
-                    .load(bean.getApp_user_head_pic())
-                    .error(R.mipmap.hm_main_drawer_photo_default)
-                    .crossFade(1000)
-                    .transform(new GlideCircleTransform(DetailsActivity.this))
+                    .load(ss.getApp_user_head_pic())
                     .into(customerPhotos[1]);
         }
     };
@@ -255,18 +329,10 @@ public class DetailsActivity extends BaseActivity {
      * 工作室接单
      * */
     private void accept() {
-        if ("1".equals(customerInfo.getOrderType())) {
-            NetworkCopy.userAcceptOrderService().acceptOrder(TokenUtils.token, customerInfo.getOrder_id(), "1")
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(acceptOrder);
-
-        } else {
-            Network.userAcceptOrderService().acceptOrder(stuId, customerInfo.getOrder_id(), "0", "11")
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(acceptOrder);
-        }
+        NetworkCopy.userAcceptOrderService().acceptOrder(TokenUtils.token, bodyBean.getOrderId(), customerInfo.getOrderType())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(acceptOrder);
     }
 
     /*
@@ -280,13 +346,17 @@ public class DetailsActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-            ToastUtils.Toa(DetailsActivity.this, "网络中断，请重试" + e.getMessage());
+            //ToastUtils.Toa(DetailsActivity.this, "网络中断，请重试" + e.getMessage());
         }
 
         @Override
         public void onNext(UserInfo userInfo) {
             if (TextUtils.equals("0", userInfo.getRet())) {
                 ToastUtils.Toa(DetailsActivity.this, "接单成功");
+                buttons[0].setVisibility(View.GONE);
+                buttons[1].setVisibility(View.VISIBLE);
+                buttons[2].setVisibility(View.GONE);
+                buttons[1].setText("待服务");
             } else {
                 ToastUtils.Toa(DetailsActivity.this, "接单失败，请重试");
             }
@@ -305,13 +375,17 @@ public class DetailsActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-            ToastUtils.Toa(DetailsActivity.this, "网络中断，请重试" + e.getMessage());
+            //ToastUtils.Toa(DetailsActivity.this, "网络中断，请重试" + e.getMessage());
         }
 
         @Override
         public void onNext(UserInfo userInfo) {
             if (TextUtils.equals("0", userInfo.getRet())) {
                 ToastUtils.Toa(DetailsActivity.this, "拒绝接单成功");
+                buttons[0].setVisibility(View.GONE);
+                buttons[1].setVisibility(View.VISIBLE);
+                buttons[2].setVisibility(View.GONE);
+                buttons[1].setText("已拒绝");
             } else {
                 ToastUtils.Toa(DetailsActivity.this, "拒绝接单失败，请重试");
             }
@@ -322,17 +396,10 @@ public class DetailsActivity extends BaseActivity {
       * 将数据发送到服务器
       * */
     private void refuseInter(String reason) {
-        if ("1".equals(customerInfo.getOrderType())) {
-            NetworkCopy.userRefuseOrderService().refuseOrder(TokenUtils.token, "1", customerInfo.getOrder_id(), reason)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(refuseOrder);
-        } else {
-            Network.userRefuseOrderService().refuseOrder(stuId, customerInfo.getOrder_id(), reason)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(refuseOrder);
-        }
+        NetworkCopy.userRefuseOrderService().refuseOrder(TokenUtils.token, customerInfo.getOrderType(), bodyBean.getOrderId(), reason)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(refuseOrder);
     }
 
     /*

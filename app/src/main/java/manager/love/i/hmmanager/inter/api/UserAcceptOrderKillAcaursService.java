@@ -23,7 +23,6 @@ import rx.Observable;
 // ┃┫┫　┃┫┫
 // ┗┻┛　┗┻┛
 public interface UserAcceptOrderKillAcaursService {
-
-    @POST("admiral/app/hmgls/service/order/acceptOrder.htm")
+    @POST("admiral/order/info/acceptOrder.htm")
     Observable<UserInfo> acceptOrder(@Query("token") String token, @Query("orderId") String orderId, @Query("orderType") String orderType);
 }

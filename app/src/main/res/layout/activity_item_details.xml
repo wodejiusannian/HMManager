@@ -21,6 +21,15 @@
             android:layout_centerInParent="true"
             android:text="单品详情"
             android:textColor="@color/colorTabSelect" />
+
+        <ImageView
+            android:id="@+id/iv_web_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/hm_web_share" />
     </RelativeLayout>
 
     <WebView
